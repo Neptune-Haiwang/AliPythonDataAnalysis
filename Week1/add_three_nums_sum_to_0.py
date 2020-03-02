@@ -22,7 +22,9 @@ def add_three_nums(nums):
         while j < k:
             sum_three = nums[i] + nums[j] + nums[k]
             if sum_three == 0:
-                result.append([nums[i], nums[j], nums[k]])
+                temp = [nums[i], nums[j], nums[k]]
+                if temp not in result:
+                    result.append([nums[i], nums[j], nums[k]])
                 j += 1
                 k -= 1
             elif sum_three < 0:
@@ -31,12 +33,45 @@ def add_three_nums(nums):
                 k -= 1
 
     # 去除 重复的 result
-    new_result = []
-    for r in result:
-        if r not in new_result:
-            new_result.append(r)
+    # new_result = []
+    # for r in result:
+    #     if r not in new_result:
+    #         new_result.append(r)
 
-    return list(new_result)
+    return list(result)
+
+
+# def add_three_nums(nums):
+#     # 对列表数字大小进行排序
+#     nums.sort()
+#     # 构建一个空列表
+#     result = []
+#
+#     for i in range(len(nums)):
+#         # 三个整数相加和为0，则至少有一个整数为负数
+#         if nums[i] > 0:
+#             break
+#         # 两个下标 向中间逼近
+#         j = i + 1
+#         k = len(nums) - 1
+#         while j < k:
+#             sum_three = nums[i] + nums[j] + nums[k]
+#             if sum_three == 0:
+#                 result.append([nums[i], nums[j], nums[k]])
+#                 j += 1
+#                 k -= 1
+#             elif sum_three < 0:
+#                 j += 1
+#             else:
+#                 k -= 1
+#
+#     # 去除 重复的 result
+#     new_result = []
+#     for r in result:
+#         if r not in new_result:
+#             new_result.append(r)
+#
+#     return list(new_result)
 
 print(add_three_nums(nums))
 
