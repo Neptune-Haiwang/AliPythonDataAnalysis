@@ -24,3 +24,5 @@
             对获得到的 urls 列表循环， 获取其中的每一个 srcs 小列表元素，
             在对 srcs 小列表中的每一个 src 遍历：用 response.get 来获得 url， 再把获得到的 src内容保存到文件里
 
+常见问题补充：
+    BeautifulSoup使用find，find_all常见问题汇总： https://www.jianshu.com/p/a087289e88be
