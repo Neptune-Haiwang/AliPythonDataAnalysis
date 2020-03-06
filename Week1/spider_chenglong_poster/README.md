@@ -1,9 +1,11 @@
 ###任务：
+    
     1. 用python去豆瓣电影这个网站把”成龙“的相关海报抓取下来
     
     2. 任务分解：写一个 python爬虫的脚本， 去豆瓣电影，爬取 名字里含有 “成龙” 的海报照片
 
 ###具体分析：
+    
     1。什么是爬虫：爬虫实际上是用浏览器访问的方式模拟了访问网站的过程，整个过程包括三个阶段：打开网页、提取数据和保存数据
         * 打开网页：Requests， 发送HTTP请求：
             A. request主要分GET和POST
@@ -20,12 +22,14 @@
     3。 JSON 是一种轻量级的交互方式 就比较简单了 将 JSON 对象直接转换成为 Python 对象，我们对数据进行解析就更方便 我们一般用json库
 
 ###谷歌开发者工具的了解：
+    
     1。 在chrome开发者工具里面监控 输入人名后网络流的全过程 https://www.douban.com/search?cat=1025&q=
         在 inspect -> network -> XHR 里，找到对应的 name 可以复制链接， 在下买你的
             A. headers 查看网络请求内容, 
             B. response 查看JSON格式的数据
 
 ###豆瓣网站的深入了解：
+    
     1。 JSON数据的格式：
         {"images":[{"src":"https://img9.doubanio.com\/view\/photo\/photo\/public\/p2237159394.jpg",
                         "author":"一二三四五六","url":"https:\/\/www.douban.com\/link2\/?url=http%3A%2F%2Fwww.douban.com%2Fphotos%2Fphoto%2F2237159394%2F&query=%E6%88%90%E9%BE%99&cat_id=1025&type=search",
@@ -39,6 +43,7 @@
         最后的start控制步长：       0   20  40
 
 ###网站参考资源：
+    
     1。 https://blog.csdn.net/qq_43659281/article/details/86528921
     
     2。 https://www.cnblogs.com/hexia7935/p/9960368.html
