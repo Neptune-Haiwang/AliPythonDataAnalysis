@@ -2,6 +2,15 @@ import os
 import requests
 import json
 
+"""
+@author: Haiwang Luo
+Date: 06/03/2020
+参考阅读资料：
+    1。 https://blog.csdn.net/qq_43659281/article/details/86528921
+    2。 https://www.cnblogs.com/hexia7935/p/9960368.html
+    3。 https://blog.csdn.net/fei347795790/article/details/101696368
+"""
+
 
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) '}
 
@@ -23,7 +32,6 @@ def get_url(url):
         # 保存海报
         dir_name = os.path.abspath('./data')
         img_name = img_src.split('/')[-1]
-        # 下载出来格式问题要注意，多次报错!!!
         with open(dir_name + '/' + img_name, 'wb') as f:
             f.write(img_file.content)
 
