@@ -24,21 +24,22 @@ def get_url(url):
     for poster in posters:
         # 从src键 中获取值：即每个海报的src地址
         img_src = poster['src']
-        # 再次 用request向服务器请求这个src地址对应的内容
+        # 再次 用request向服务器请求这个src地址对应的结果对象
         img_file = requests.get(img_src)
         print(img_src)
-        # 保存海报到指定的当前目录下的 data 文件夹下
+        # 保存海报到指定的当前目录的 data 文件夹下
         dir_name = os.path.abspath('./data')
-        # 把 src 地址的最后一个 / 斜杠后面的内容最为图片的名字
+        # 把 src 地址的最后一个 / 斜杠后面的内容作为图片的名字
         img_name = img_src.split('/')[-1]
-        # 写入 图片
+        # 写入图片， 以二进制形式写入
         with open(dir_name + '/' + img_name, 'wb') as f:
+            # 写入的内容是 向服务器请求了 img_src 这个链接所对应的结果对象img_file中的内容
             f.write(img_file.content)
 
 
 if __name__ == '__main__':
     # 根据 README.md 中发现的 URL的规律构造 UR，并执行操作
-    urls = ['https://www.douban.com/j/search_photo?q=%E6%88%90%E9%BE%99&limit=20&start={}'.format(str(i)) for i in range(0, 80, 20)]
+    urls = ['https://www.douban.com/j/search_photo?q=%E6%88%90%E9%BE%99&limit=20&start={}'.format(str(i))
+            for i in range(0, 80, 20)]
     for url in urls:
         get_url(url)
-
