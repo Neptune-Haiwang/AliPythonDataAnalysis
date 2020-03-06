@@ -5,45 +5,39 @@ import json
 """
 @author: Haiwang Luo
 Date: 06/03/2020
-参考阅读资料：
-    1。 https://blog.csdn.net/qq_43659281/article/details/86528921
-    2。 https://www.cnblogs.com/hexia7935/p/9960368.html
-    3。 https://blog.csdn.net/fei347795790/article/details/101696368
 """
 
-
+# 定义 headers, 告诉 服务器，我的用户代理身份是什么浏览器
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) '}
 
+# 获取链接，下载图片
 def get_url(url):
+    # 针对URL 进行HTTP GET 请求
     response = requests.get(url, headers = headers)
+
+    # 对请求到的响应JSON格式的内容 用JSON格式进行加载， 具体的格式，详见 README.md
     json_data = json.loads(response.text)
-    """json格式数据
-    {"images":[{"src":"https://img9.doubanio.com\/view\/photo\/photo\/public\/p2237159394.jpg",
-                "author":"一二三四五六","url":"https:\/\/www.douban.com\/link2\/?url=http%3A%2F%2Fwww.douban.com%2Fphotos%2Fphoto%2F2237159394%2F&query=%E6%88%90%E9%BE%99&cat_id=1025&type=search",
-                "id":"2237159394","title":"永远的邓丽君","width":400,"height":421},...
-    """
+    # 从JSON格式内容中找到 images 键，获取键对应的值内容，此时为一个列表
     posters = json_data.get('images')
+
+    # 针对 列表进行遍历
     for poster in posters:
-        # 获取每个海报的下载链接
+        # 从src键 中获取值：即每个海报的src地址
         img_src = poster['src']
-        # 再次 用request请求这个src，目的是为了获得src地址对应的内容
+        # 再次 用request向服务器请求这个src地址对应的内容
         img_file = requests.get(img_src)
         print(img_src)
-        # 保存海报
+        # 保存海报到指定的当前目录下的 data 文件夹下
         dir_name = os.path.abspath('./data')
+        # 把 src 地址的最后一个 / 斜杠后面的内容最为图片的名字
         img_name = img_src.split('/')[-1]
+        # 写入 图片
         with open(dir_name + '/' + img_name, 'wb') as f:
             f.write(img_file.content)
 
 
 if __name__ == '__main__':
-    """URL链接
-    https://www.douban.com/j/search_photo?q=%E6%88%90%E9%BE%99&limit=20&start=0
-    https://www.douban.com/j/search_photo?q=%E6%88%90%E9%BE%99&limit=20&start=20
-    https://www.douban.com/j/search_photo?q=%E6%88%90%E9%BE%99&limit=20&start=40
-    找到页面和URL之间的对应规律：1   2   3
-    最后的start控制步长：       0   20  40
-    """
+    # 根据 README.md 中发现的 URL的规律构造 UR，并执行操作
     urls = ['https://www.douban.com/j/search_photo?q=%E6%88%90%E9%BE%99&limit=20&start={}'.format(str(i)) for i in range(0, 80, 20)]
     for url in urls:
         get_url(url)
