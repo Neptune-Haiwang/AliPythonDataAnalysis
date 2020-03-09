@@ -67,6 +67,7 @@
 
 ### 参考资源
     
-    1。 爬虫解析库：XPath： https://www.jianshu.com/p/85a3004b5c06
+    1。Python + Selenium Web自动化 全套教程：https://www.bilibili.com/video/av64421994
     2。 白月黑羽教Python：  http://www.python3.vip/doc/tutorial/selenium/01/
-    3。 selenium--浏览器滚动条操作：  https://www.cnblogs.com/zouzou-busy/p/11179068.html
+    3。 爬虫解析库：XPath： https://www.jianshu.com/p/85a3004b5c06
+    4。 selenium--浏览器滚动条操作：  https://www.cnblogs.com/zouzou-busy/p/11179068.html
