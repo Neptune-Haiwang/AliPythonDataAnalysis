@@ -63,7 +63,12 @@
             specific_weibo = wd.find_element_by_xpath(xpath_here)
         *   js = 'arguments[0].scrollIntoView();'   # 操作浏览器向下滑动到指定的div区域
             wd.execute_script(js, specific_weibo)       
-        
+
+### 本次任务的重难点再梳理
+    
+    1。使用 xpath 和 css selector 语法 选择到指定的元素，注意格式的书写。
+    2。加关注，取消关注时 的弹窗处理要注意
+    3。找指定微博时，对浏览器页面滑动到指定微博内容时的处理，要用到 javascript 交给 webdriver 去执行         
 
 ### 参考资源
     
