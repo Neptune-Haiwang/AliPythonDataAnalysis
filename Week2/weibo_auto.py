@@ -24,7 +24,7 @@ def login_weibo(usr_name, usr_passwd):
 
 
 def follow_comment_a_user(keyword_id, weibo_no, comment_content):
-    """关注用户，处理弹窗，找到对应的微博，定位到对应评论区并添加评论
+    """2。关注用户，处理弹窗，找到对应的微博，定位到对应评论区并添加评论
 
     @param keyword_id: 需要查找的用户的微博主页的编号
     @param weibo_no: 需要回复的对应的第几条微博编号
