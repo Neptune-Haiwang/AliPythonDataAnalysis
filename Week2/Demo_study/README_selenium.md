@@ -74,3 +74,4 @@
     
     1。 （白月黑羽教Python：文本教程）http://www.python3.vip/doc/tutorial/selenium/01/
     2。 （爬虫解析库：XPath）https://www.jianshu.com/p/85a3004b5c06
+    3。 （selenium--浏览器滚动条操作）https://www.cnblogs.com/zouzou-busy/p/11179068.html
