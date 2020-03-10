@@ -22,79 +22,46 @@
         * 点击操作：click方法
         * 输入操作：send_keys方法
         * 获取属性内容：text 属性可以获取元素 展示在界面上的 文本内容、get_attribute 方法来获取元素的属性值。
-    
-### xpath 语法简要
-   
-    3。根据 xpath 方法：XPath，全称 XML Path Language，即 XML 路径语言，它是一门在 XML 文档中查找信息的语言。最初是用来搜寻 XML 文档的，但同样适用于 HTML 文档的搜索。
-        * 安装方法： pip install lxml
-        * 常用规则：   表达式	          描述
-                    nodename        选取此节点的所有子节点
-                    /	            从当前节点选区直接子节点
-                    //	            从当前节点选取子孙节点
-                    .	            选取当前节点
-                    ..	            选取当前节点的父节点
-                    @	            选取属性
-        * 绝对路径： elements = driver.find_elements_by_xpath("/html/body/div")
-        * 相对路径： elements = driver.find_elements_by_xpath("//div//p")
-        * 根据属性选择：根据属性来选择元素 是通过 这种格式来的 [@属性名='属性值']
-            如果一个元素class 有多个，比如：<p id="beijing" class='capital huge-city'>北京 </p>
-            如果要选 它， 对应的 xpath 就应该是 //p[@class="capital huge-city"]
-        * 属性值包含字符串：
-            A. 要选择 style属性值 包含 color 字符串的 页面元素 ，可以这样 //*[contains(@style,'color')]
-            B. 要选择 style属性值 以 color 字符串 开头 的 页面元素 ，可以这样 //*[starts-with(@style,'color')]
-        * 范围选择：xpath还可以选择子元素的次序范围。
-            选择class属性为multi_choice的后3个子元素：//*[@class='multi_choice']/*[position()>=last()-2]
-            要选所有的 class 为 single_choice 和 class 为 multi_choice 的元素：//*[@class='single_choice'] | //*[@class='multi_choice']
-                        等同于CSS选择器：  .single_choice , .multi_choice
-        
-        * 例子：//title[@lang='eng']       这是一个 XPath 规则，代表的是选择所有名称为 title，同时属性 lang 的值为 eng 的节点，
-                后面会通过 Python 的 lxml 库，利用 XPath 进行 HTML 的解析。
-        * 补充：* 代表匹配所有节点，返回的结果是一个列表
-        * 复杂用法展示：
-            A. 有重复的class属性无法区分时，选择对应的顺序（1，2，3,,）满足的 element返回：  wd.find_element_by_xpath('//div[@class="toolbar_menu_list m-box-col m-box-center m-box-center-a"][1]').click()
-            B. 从一个大的div层级下进行选择后，再继续向下选择：    wd.find_element_by_xpath('//div[@class="m-pop m-pop-s"]//ul/li[2]/div[@class="m-diy-btn m-box-col m-box-center m-box-center-a"]').click()
-            C. 和 format 一起的综合使用方法：  xpath_here = "//div[@class='card m-panel card9 weibo-member card-vip'][{}]".format(weibo_no)
-        * 等待界面元素出现的方法： 
-            A. # 设置最大等待时长为 5 秒：     wd.implicitly_wait(5)
-            B. 设置延时操作：      time.sleep(1)    
-
-### css 语法简要
-
-    1。CSS Selector 语法选择元素：例： .animal {color : red; background-color: red;} 
-        * CSS selector的另一个强大之处在于： 选择语法 可以 联合使用
-        * 要选择 所有的tag名为div的元素： elements = wd.find_elements_by_css_selector('div')
-        * 根据id属性：<input  type="text" id='searchtext' /> 则：element = wd.find_element_by_css_selector('#searchtext')
-        * 要选择 网页 html 中的元素 <span class='copyright'>版权</span>
-                <div id='bottom'>
-                    <div class='footer1'>
-                        <span class='copyright'>版权</span>
-                        <span class='date'>发布日期：2018-03-03</span>
-                    </div>
-                    <div class='footer2'>
-                        <span>备案号
-                            <a href="http://www.miitbeian.gov.cn">苏ICP备88885574号</a>
-                        </span>
-                    </div>        
-                </div>    
-            A. CSS selector 表达式 可以这样写：  div.footer1 > span.copyright
-            B. 也可以更简单：  .footer1 > .copyright
-        
-        * 示例：直接找到对应的CSS属性
-            A. wd.find_element_by_css_selector('span[class="m-wz-def"]').click()
-            B. 根据属性选择元素：element = wd.find_element_by_css_selector('[href="http://www.miitbeian.gov.cn"]')
-            C. 当然，前面可以加上标签名的限制，比如 div[class='SKnet'] 表示 选择所有 标签名为div，且class属性值为SKnet的元素。
-    
-    2。xpath 与 css 用法对比的进一步补充：
-        * elements = driver.find_elements_by_xpath("//div//p") 等价于 elements = driver.find_elements_by_css_selector("div p")
-    
-### 补充：浏览器滚动条操作
-    
-    1。浏览器滚动条操作：在进行web自动化的时候，selenium只能找当前屏幕上的标签，
+    4。 等待界面元素出现的方法： 
+        A. # 设置最大等待时长为 5 秒：     wd.implicitly_wait(5)
+        B. 设置延时操作：      time.sleep(1) 
+    5。浏览器滚动条操作：在进行web自动化的时候，selenium只能找当前屏幕上的标签，
         如果标签在当前页面没显示下，需要拖动滚动条才能查看到这个元素，这时候就要操作浏览器的滚动条，让当前页面显示这个元素才可以操作
             xpath_here = "//div[@class='card m-panel card9 weibo-member card-vip'][{}]".format(weibo_no)
             specific_weibo = wd.find_element_by_xpath(xpath_here)
             js = 'arguments[0].scrollIntoView();'   # 操作浏览器向下滑动到指定的div区域
-            wd.execute_script(js, specific_weibo)       
+            wd.execute_script(js, specific_weibo)     
+    
+### xpath 语法简要
+   
+    1. 用 command + f 查找， 输入对应的xpath看是否可以查找对应到该标签
+    2。 xpath 语法分为三大类：
+        * 层级：/ 直接层级     //跳级
+        * 属性：@ 属性访问
+        * 函数：contains()     text() 
+    3。示例讲解：
+        //div[@class="opr-recommends-merge-content"]//div[contains(@class, "opr-recommends-merge-item")]
+        拆解分析：
+            * 首先：跳级选中： //div[@class="opr-recommends-merge-content"]
+            * 然后，继续跳级选中：//div[contains(@class, "opr-recommends-merge-item")]
+                其中，contains（）方法表示，class里只是包含了一段 "opr-recommends-merge-item"
+    4。一个复杂的XPATH选择示例：：
+        //div[@class="result-op xpath-log"]//div[@class="FYB_RD"]//tbody[1]/tr[3]/td[1]//a[contains(@target, "blank")]
+    5。 复杂用法 -> 和 format 一起的综合使用方法：
+        xpath_here = "//div[@class='card m-panel card9 weibo-member card-vip'][{}]".format(weibo_no)   
+
+### css Selector 语法简要
+
+    1。CSS Selector 语法选择元素：例： .animal {color : red; background-color: red;} 
+        * CSS selector的另一个强大之处在于： 选择语法 可以 联合使用
+    2。要选择 所有的tag名为div的元素： elements = wd.find_elements_by_css_selector('div')
+    3。根据id属性：<input  type="text" id='searchtext' /> 则：element = wd.find_element_by_css_selector('#searchtext')        
+    4。 示例：直接找到对应的CSS属性
+        A. wd.find_element_by_css_selector('span[class="m-wz-def"]').click()
+        B. 根据属性选择元素：element = wd.find_element_by_css_selector('[href="http://www.miitbeian.gov.cn"]')
+        C. 当然，前面可以加上标签名的限制，比如 div[class='SKnet'] 表示 选择所有 标签名为div，且class属性值为SKnet的元素。
+    5。xpath 与 css 用法对比的进一步补充：
+        * elements = driver.find_elements_by_xpath("//div//p") 等价于 elements = driver.find_elements_by_css_selector("div p")
 
 ### 本次任务的重难点再梳理
     
