@@ -31,17 +31,25 @@ def knn_writen_numbers():
     # 用训练集的平均值和标准差对测试集进行标准化
     x_test = transfer.transform(x_test)
 
-    # 4）KNN算法预估器
+    # 4）KNN算法预估器 # 默认参数，创建空分类器
     estimator = KNeighborsClassifier()
-    # 加入网格搜索与交叉验证
+    # 加入网格搜索与交叉验证 # 添加网格搜索参数
     """网格搜索算法
     GridSearchCV，它存在的意义就是自动调参，只要把参数输进去，就能给出最优化的结果和参数。
     param_grid:需要最优化的参数的取值，值为字典或者列表
     cv=None: 交叉验证参数，默认None，使用三折交叉验证。指定fold数量，默认为3
     """
-    param = {'n_neighbors': [2, 3, 4, 5, 6, 7, 8]}
-    estimator = GridSearchCV(estimator, param_grid=param, cv=3)
+    param_grid = [
+        {
+            'n_neighbors': [i for i in range(1, 11)],
+            'weights': ['uniform', 'distance'],
+            'algorithm': ['auto', 'kd_tree', 'ball_tree', 'brute'],
+            'leaf_size': [20, 30, 40, 50]
+         }
+    ]
+    estimator = GridSearchCV(estimator, param_grid=param_grid, cv=3)
     estimator.fit(x_train, y_train)
+
 
     # 5）模型评估
     # 方法1：直接比对真实值和预测值
@@ -52,9 +60,11 @@ def knn_writen_numbers():
     # score1 = estimator.score(x_train, y_train)
     # score2 = estimator.score(x_test, y_test)
     # print('训练集的准确率: %s， 而测试集的准确率为：%s' % (score1, score2))
-    # 找到最佳的:参数、准确率、估计器、交叉验证结果
-    print('最佳K参数: %s, \n最佳测试准确率: %s, \n最佳估计器: %s, \n交叉验证结果:\n%s' % (estimator.best_params_, estimator.best_score_, estimator.best_estimator_, estimator.cv_results_) )
+
+    # 找到最佳的:参数、准确率、估计器、 (交叉验证结果estimator.cv_results_)
+    print('最佳K参数: %s, \n最佳测试准确率: %s, \n最佳估计器: %s' % (estimator.best_params_, estimator.best_score_, estimator.best_estimator_))
 
 
 if __name__ == '__main__':
     knn_writen_numbers()
+

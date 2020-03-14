@@ -8,6 +8,8 @@
         * 获得数据：数据采集
         * 数据预处理：理解数据，清洗数据，检查数据的完整性
         * 进行分类：模型评估（把测试集丢给 训练好的模型 检验 预测的准确率，要防止过拟合问题），模型再训练，修改参数，提高精度
+    4。 要求你变化 KNeighborsClassifier 的默认参数看看预测效果有没有变化：
+        * 试下不同的参数组合 用python matplotlib画图看看
         
 ### KNN 算法原理
 
@@ -46,7 +48,34 @@
         * 特征工程：标准化、（降维） from sklearn.preprocessing import
         * KNN预估器流程  from sklearn.neighbors import
         * 算法模型评估    .predict    .score      
+
+### KNeighborsClassifier 的参数设置与变化
+
+    1。KNeighborsClassifier(n_neighbors=5, weights=‘uniform’, algorithm=‘auto’, leaf_size=30)
+        * n_neighbors：即 KNN 中的 K 值，代表的是邻居的数量。
+                K 值如果比较小，会造成过拟合。如果 K 值比较大，无法将未知物体分类出来。一般我们使用默认值 5。
+        * weights：是用来确定邻居的权重，有三种方式：
+                weights=uniform，代表所有邻居的权重相同；
+                weights=distance，代表权重是距离的倒数，即与距离成反比；
+                自定义函数，你可以自定义不同距离所对应的权重。大部分情况下不需要自己定义函数。
+        * algorithm：用来规定计算邻居的方法，它有四种方式：
+                algorithm=auto，根据数据的情况自动选择适合的算法，默认情况选择 auto；
+                algorithm=kd_tree，也叫作 KD 树，是多维空间的数据结构，方便对关键数据进行检索，不过 KD 树适用于维度少的情况，一般维数不超过 20，如果维数大于 20 之后，效率反而会下降；
+                algorithm=ball_tree，也叫作球树，它和 KD 树一样都是多维空间的数据结果，不同于 KD 树，球树更适用于维度大的情况；
+                algorithm=brute，也叫作暴力搜索，它和 KD 树不同的地方是在于采用的是线性扫描，而不是通过构造树结构进行快速检索。当训练集大的时候，效率很低。
+        * leaf_size：代表构造 KD 树或球树时的叶子数，默认是 30，调整 leaf_size 会影响到树的构造和搜索速度。
+                创建完 KNN 分类器之后，我们就可以输入训练集对它进行训练，
+                这里我们使用 fit() 函数，传入训练集中的样本特征矩阵和分类标识，会自动得到训练好的 KNN 分类器。
+                然后可以使用 predict() 函数来对结果进行预测，这里传入测试集的特征矩阵，可以得到测试集的预测分类结果。
+    2. 四个参数对 KNeighborsClassifier 算法预测准确率的影响如下：
+        * （通过 matplotlib画图找到的规律）图：matplotlib分析KNN的超参数对KNN预测准确率的影响.png
+        * n_neighbors 影响最大，训练集的准确率随 n_neighbors参数变大而减小；但测试集的准确率在n_neighbors 选择 5 时 达到最好
+        * weights参数 选择 distance 时 训练集准确率最高；但对于测试集，distance 与 uniform 几乎没区别
+        * algorithm参数和leaf_size在训练集和测试集上区别也都不大
+        
  
 ### 参考资源
     
     1。 【黑马程序员】python机器学习-视频教程：https://www.bilibili.com/video/av39137333?p=21
+    2。 查看neighbors大小对K近邻分类算法预测准确度和泛化能力的影响： https://www.cnblogs.com/yszd/p/9298214.html
+    3。用Python中的matplotlib画出一个3行2列的饼图：https://blog.csdn.net/qq_33221533/article/details/81568244
