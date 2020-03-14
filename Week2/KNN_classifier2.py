@@ -2,13 +2,18 @@ from sklearn.datasets import load_digits
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
 
 def knn_writen_numbers():
 
     # 1）获取数据
     digits = load_digits()
     # 2) 数据集划分
-    x_train, x_test, y_train, y_test = train_test_split(digits.data, digits.target, random_state=66)
+    x_train, x_test, y_train, y_test = train_test_split(digits.data, digits.target, test_size=0.3, random_state=2)
+    # 2.1）特征工程：标准化
+    transfer = StandardScaler()
+    x_train = transfer.fit_transform(x_train)
+    x_test = transfer.transform(x_test)
 
     # 3) 分析不同参数的变化对K近邻算法预测精度和泛化能力的影响
     neighbours_range = range(1, 11)
@@ -16,37 +21,37 @@ def knn_writen_numbers():
     algorithm_range = ['auto', 'kd_tree', 'ball_tree', 'brute']
     leaf_size_range = [10, 20, 30, 40, 50]
 
-    train_accuracy1, train_accuracy2, train_accuracy3, train_accuracy4 = [],[],[],[]
-    test_accuracy1, test_accuracy2, test_accuracy3, test_accuracy4 = [],[],[],[]
+    train_accuracy1, train_accuracy2, train_accuracy3, train_accuracy4 = [], [], [], []
+    test_accuracy1, test_accuracy2, test_accuracy3, test_accuracy4 = [], [], [], []
 
-    # 4）分析 不同的参数对KNeighbors预测效果的影响
-    # n_neighbors参数对KNeighbors预测效果的影响
-    for k in neighbours_range:
+    # 4）分析 不同的超参数调整对KNeighbors预测效果的影响
+    # n_neighbors 超参数对KNeighbors预测效果的影响
+    for n in neighbours_range:
         # 构建模型
-        estimator = KNeighborsClassifier(n_neighbors=k)
+        estimator = KNeighborsClassifier(n_neighbors=n)
         estimator.fit(x_train, y_train)
         # 记录训练集精度S
         train_accuracy1.append(estimator.score(x_train, y_train))
         # 记录泛化能力
         test_accuracy1.append(estimator.score(x_test, y_test))
 
-    # weights 参数对KNeighbors预测效果的影响
+    # weights 超参数对KNeighbors预测效果的影响
     for i in weights_range:
-        estimator = KNeighborsClassifier(n_neighbors=5, weights=i)
+        estimator = KNeighborsClassifier(weights=i)
         estimator.fit(x_train, y_train)
         train_accuracy2.append(estimator.score(x_train, y_train))
         test_accuracy2.append(estimator.score(x_test, y_test))
 
-    # algorithm 参数对KNeighbors预测效果的影响
+    # algorithm 超参数对KNeighbors预测效果的影响
     for j in algorithm_range:
-        estimator = KNeighborsClassifier(n_neighbors=5, algorithm=j)
+        estimator = KNeighborsClassifier(algorithm=j)
         estimator.fit(x_train, y_train)
         train_accuracy3.append(estimator.score(x_train, y_train))
         test_accuracy3.append(estimator.score(x_test, y_test))
 
-    # leaf_size 参数对KNeighbors预测效果的影响
+    # leaf_size 超参数对KNeighbors预测效果的影响
     for k in leaf_size_range:
-        estimator = KNeighborsClassifier(n_neighbors=5, leaf_size=k)
+        estimator = KNeighborsClassifier(leaf_size=k)
         estimator.fit(x_train, y_train)
         train_accuracy4.append(estimator.score(x_train, y_train))
         test_accuracy4.append(estimator.score(x_test, y_test))
@@ -85,6 +90,7 @@ def knn_writen_numbers():
     plt.xlabel('Leaf Size')
     plt.ylabel('Accuracy')
     plt.legend()
+
 
     # 展示 画图的结果
     plt.tight_layout()

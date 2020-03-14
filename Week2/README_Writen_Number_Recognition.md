@@ -69,7 +69,7 @@
                 然后可以使用 predict() 函数来对结果进行预测，这里传入测试集的特征矩阵，可以得到测试集的预测分类结果。
     2. 四个参数对 KNeighborsClassifier 算法预测准确率的影响如下：
         * （通过 matplotlib画图找到的规律）图：matplotlib分析KNN的超参数对KNN预测准确率的影响.png
-        * n_neighbors 影响最大，训练集的准确率随 n_neighbors参数变大而减小；但测试集的准确率在n_neighbors 选择 5 时 达到最好
+        * n_neighbors 影响最大，训练集的准确率随 n_neighbors参数变大而减小；但测试集的准确率在n_neighbors 选择 3 时 达到最好
         * weights参数 选择 distance 时 训练集准确率最高；但对于测试集，distance 与 uniform 几乎没区别
         * algorithm参数和leaf_size在训练集和测试集上区别也都不大
         
