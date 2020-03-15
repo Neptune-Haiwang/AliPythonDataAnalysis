@@ -31,7 +31,7 @@ def follow_comment_a_user(keyword_id, weibo_no, comment_content):
     @param comment_content: 需要添加评论的内容
     """
     wd.get('https://m.weibo.cn/u/' + keyword_id)
-    # 关注该用户， 使用xpath定位路径，xpath的使用方法见 README_WEEK2.md
+    # 关注该用户， 使用xpath定位路径，xpath的使用方法见 README_WEEK2_weibo_auto.md
     wd.find_element_by_xpath('//div[@class="m-add-box m-followBtn"]').click()
     time.sleep(1)
 
@@ -43,7 +43,7 @@ def follow_comment_a_user(keyword_id, weibo_no, comment_content):
     xpath_here = "//div[@class='card m-panel card9 weibo-member card-vip'][{}]".format(weibo_no)
     specific_weibo = wd.find_element_by_xpath(xpath_here)
 
-    # 操作浏览器向下滑动到指定的div区域, 操纵滑动条的实现方法见 README_WEEK2.md
+    # 操作浏览器向下滑动到指定的div区域, 操纵滑动条的实现方法见 README_WEEK2_weibo_auto.md
     js = 'arguments[0].scrollIntoView();'
     wd.execute_script(js, specific_weibo)
 

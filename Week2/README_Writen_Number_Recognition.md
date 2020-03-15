@@ -67,15 +67,14 @@
                 创建完 KNN 分类器之后，我们就可以输入训练集对它进行训练，
                 这里我们使用 fit() 函数，传入训练集中的样本特征矩阵和分类标识，会自动得到训练好的 KNN 分类器。
                 然后可以使用 predict() 函数来对结果进行预测，这里传入测试集的特征矩阵，可以得到测试集的预测分类结果。
-    2. 四个参数对 KNeighborsClassifier 算法预测准确率的影响如下：
-        * （通过 matplotlib画图找到的规律）图：matplotlib分析KNN的超参数对KNN预测准确率的影响.png
-        * n_neighbors 影响最大，训练集的准确率随 n_neighbors参数变大而减小；但测试集的准确率在n_neighbors 选择 3 时 达到最好
-        * weights参数 选择 distance 时 训练集准确率最高；但对于测试集，distance 与 uniform 几乎没区别
-        * algorithm参数和leaf_size在训练集和测试集上区别也都不大
+    
+    2. 通过断点调试对四个超参数的分析如下： matplotlib画图效果图 见： KNN_output.png
+        * 断点调试了，后两个参数 预测的准确率结果是完全一样的数字。
+        * 我觉得可能原因是 ：algorithm超参数是用于确定 “邻居”的搜索方式；leaf_size 影响的是存储和查询树的速度。因此这两个超参与预测结果无关，只与运行速度有关
         
  
 ### 参考资源
     
     1。 【黑马程序员】python机器学习-视频教程：https://www.bilibili.com/video/av39137333?p=21
     2。 查看neighbors大小对K近邻分类算法预测准确度和泛化能力的影响： https://www.cnblogs.com/yszd/p/9298214.html
-    3。用Python中的matplotlib画出一个3行2列的饼图：https://blog.csdn.net/qq_33221533/article/details/81568244
+    3。 用Python中的matplotlib画出一个3行2列的饼图：https://blog.csdn.net/qq_33221533/article/details/81568244

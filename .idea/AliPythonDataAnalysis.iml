@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week1/spider_chenglong_poster" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week1/spider_chenglong_poster/data" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week2/Weibo_auto_Demo_study" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week2/D_正则表达式学习" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week2/Python_常见问题集锦" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week2/KNN_其他探索" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="Python 3.7 (untitled1)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="PyDocumentationSettings">
+    <option name="format" value="EPYTEXT" />
+    <option name="myDocStringFormat" value="Epytext" />
+  </component>
+</module>
