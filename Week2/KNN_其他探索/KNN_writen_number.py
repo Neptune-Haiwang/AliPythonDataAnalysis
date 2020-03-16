@@ -12,10 +12,12 @@ def knn_writen_numbers():
         """
     # 1）获取数据
     digits = load_digits()
-    print('数据集的大小：', digits.data.shape)
-    # 展示图片 (以第一个为例)
+    # print('数据集的大小：', digits.data.shape)
+    # 展示图片 (以第一张图片为例)
     # plt.imshow(digits.images[0])
-    # plt.show()
+    # 也可以改变参数，图形以灰度图显示
+    plt.imshow(digits.images[0], cmap='gray')
+    plt.show()
 
     # 2) 数据集划分
     """random_state这个参数
@@ -34,20 +36,20 @@ def knn_writen_numbers():
     # 4）KNN算法预估器 # 默认参数，创建空分类器
     estimator = KNeighborsClassifier()
     # 加入网格搜索与交叉验证 # 添加网格搜索参数
-    """网格搜索算法
-    GridSearchCV，它存在的意义就是自动调参，只要把参数输进去，就能给出最优化的结果和参数。
-    param_grid:需要最优化的参数的取值，值为字典或者列表
-    cv=None: 交叉验证参数，默认None，使用三折交叉验证。指定fold数量，默认为3
-    """
-    param_grid = [
-        {
-            'n_neighbors': [i for i in range(1, 11)],
-            'weights': ['uniform', 'distance'],
-            'algorithm': ['auto', 'kd_tree', 'ball_tree', 'brute'],
-            'leaf_size': [20, 30, 40, 50]
-         }
-    ]
-    estimator = GridSearchCV(estimator, param_grid=param_grid, cv=3)
+    # """网格搜索算法
+    # GridSearchCV，它存在的意义就是自动调参，只要把参数输进去，就能给出最优化的结果和参数。
+    # param_grid:需要最优化的参数的取值，值为字典或者列表
+    # cv=None: 交叉验证参数，默认None，使用三折交叉验证。指定fold数量，默认为3
+    # """
+    # param_grid = [
+    #     {
+    #         'n_neighbors': [i for i in range(1, 11)],
+    #         'weights': ['uniform', 'distance'],
+    #         'algorithm': ['auto', 'kd_tree', 'ball_tree', 'brute'],
+    #         'leaf_size': [20, 30, 40, 50]
+    #      }
+    # ]
+    # estimator = GridSearchCV(estimator, param_grid=param_grid, cv=3)
     estimator.fit(x_train, y_train)
 
 
@@ -57,12 +59,12 @@ def knn_writen_numbers():
     y_predict = estimator.predict(x_test)
     print('真实结果:\n%s \n预测结果:\n%s \n正确与否\n%s' % (y_test, y_predict, y_test == y_predict))
     # 方法2：计算准确率 : 特征值，目标值
-    # score1 = estimator.score(x_train, y_train)
-    # score2 = estimator.score(x_test, y_test)
-    # print('训练集的准确率: %s， 而测试集的准确率为：%s' % (score1, score2))
+    score1 = estimator.score(x_train, y_train)
+    score2 = estimator.score(x_test, y_test)
+    print('训练集的准确率: %s， 而测试集的准确率为：%s' % (score1, score2))
 
-    # 找到最佳的:参数、准确率、估计器、 (交叉验证结果estimator.cv_results_)
-    print('最佳K参数: %s, \n最佳测试准确率: %s, \n最佳估计器: %s' % (estimator.best_params_, estimator.best_score_, estimator.best_estimator_))
+    # # 找到最佳的:参数、准确率、估计器、 (交叉验证结果estimator.cv_results_)
+    # print('最佳K参数: %s, \n最佳测试准确率: %s, \n最佳估计器: %s' % (estimator.best_params_, estimator.best_score_, estimator.best_estimator_))
 
 
 if __name__ == '__main__':

@@ -15,7 +15,7 @@ def knn_writen_numbers():
     x_train = transfer.fit_transform(x_train)
     x_test = transfer.transform(x_test)
 
-    # 3) 分析不同参数的变化对K近邻算法预测精度和泛化能力的影响
+    # 3) 分析不同的超参数的变化对K近邻算法预测精度和泛化能力的影响
     neighbours_range = range(1, 11)
     weights_range = ['uniform', 'distance']
     algorithm_range = ['auto', 'kd_tree', 'ball_tree', 'brute']
