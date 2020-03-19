@@ -5,6 +5,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import MultinomialNB
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def knn_WRN_basics():
@@ -202,67 +203,59 @@ def svm_WNR_Advanced():
     transfer = StandardScaler()
     x_train = transfer.fit_transform(x_train)
     x_test = transfer.transform(x_test)
-    # 3) 分析不同的超参数的变化对SVM算法预测精度和泛化能力的影响
-    C_range = [0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5]
-    kernel_range = ['linear', 'poly', 'rbf']
-    degree_range = [1, 2, 3, 4, 5]
-    random_state_range = [None, 0, 1, 2, 3, 4, 5]
-    train_accuracy1, train_accuracy2, train_accuracy3, train_accuracy4 = [], [], [], []
-    test_accuracy1, test_accuracy2, test_accuracy3, test_accuracy4 = [], [], [], []
+    # 3) 分析不同的超参数组合的变化对SVM算法预测精度和泛化能力的影响
+    C_range = np.linspace(0.1, 10.0)
+    train_accuracy1, train_accuracy2, train_accuracy3 = [], [], []
+    test_accuracy1, test_accuracy2, test_accuracy3= [], [], []
 
-    # 3.1) C 超参数对SVM预测效果的影响
+    # 3.1.1) C 超参数在kernel 为linear时对SVM预测效果的影响
     for c in C_range:
-        estimator = SVC(gamma='scale', C=c)
+        estimator = SVC(kernel='linear', gamma='scale', C=c)
         estimator.fit(x_train, y_train)
         train_accuracy1.append(estimator.score(x_train, y_train))
         test_accuracy1.append(estimator.score(x_test, y_test))
-    # 3.2) kernel 超参数对SVM预测效果的影响
-    for k in kernel_range:
-        estimator = SVC(gamma='scale', kernel=k)
+    # 3.1.2) C 超参数在kernel 为rbf对SVM预测效果的影响
+    for c in C_range:
+        estimator = SVC(kernel='rbf', gamma='scale', C=c)
         estimator.fit(x_train, y_train)
         train_accuracy2.append(estimator.score(x_train, y_train))
         test_accuracy2.append(estimator.score(x_test, y_test))
-    # 3.3) degree 超参数对SVM预测效果的影响
-    for d in degree_range:
-        estimator = SVC(gamma='scale', degree=d)
+    # 3.1.3) C 超参数在kernel 为poly对SVM预测效果的影响
+    for c in C_range:
+        estimator = SVC(kernel='poly', gamma='scale', C=c)
         estimator.fit(x_train, y_train)
         train_accuracy3.append(estimator.score(x_train, y_train))
         test_accuracy3.append(estimator.score(x_test, y_test))
-    # 3.4) random_state 超参数对SVM预测效果的影响
-    for r in random_state_range:
-        estimator = SVC(gamma='scale', random_state=r)
-        estimator.fit(x_train, y_train)
-        train_accuracy4.append(estimator.score(x_train, y_train))
-        test_accuracy4.append(estimator.score(x_test, y_test))
 
-    # 5)  绘图
+    # 3.2) 找到三种组合情况下，对应的kernel和C的取值 及其各自最好的预测准确率
+    score1 = [C_range[test_accuracy1.index(max(test_accuracy1))], max(test_accuracy1)]
+    score2 = [C_range[test_accuracy2.index(max(test_accuracy2))], max(test_accuracy2)]
+    score3 = [C_range[test_accuracy3.index(max(test_accuracy3))], max(test_accuracy3)]
+    print('在kernel为linear，C参数为 %s 时，最高的测试预测准确率为 %s' % (score1[0], score1[1]))
+    print('在kernel为rbf，C参数为 %s 时，最高的测试预测准确率为 %s' % (score2[0], score2[1]))
+    print('在kernel为poly，C参数为 %s 时，最高的测试预测准确率为 %s' % (score3[0], score3[1]))
+
+    # 4)  绘图
     plt.figure(figsize=(10, 6))
     # 221 > 2行2列第1个
     plt.subplot(221)
     plt.plot(C_range, train_accuracy1, label='training accuracy')
     plt.plot(C_range, test_accuracy1, label='test accuracy')
-    plt.xlabel('C')
+    plt.xlabel('C, as kernel=linear')
     plt.ylabel('Accuracy')
     plt.legend()
     # 222 > 2行2列第2个
     plt.subplot(222)
-    plt.plot(kernel_range, train_accuracy2, label='training accuracy')
-    plt.plot(kernel_range, test_accuracy2, label='test accuracy')
-    plt.xlabel('kernel')
+    plt.plot(C_range, train_accuracy2, label='training accuracy')
+    plt.plot(C_range, test_accuracy2, label='test accuracy')
+    plt.xlabel('C, as kernel=rbf')
     plt.ylabel('Accuracy')
     plt.legend()
     # 223 > 2行2列第3个
     plt.subplot(223)
-    plt.plot(degree_range, train_accuracy3, label='training accuracy')
-    plt.plot(degree_range, test_accuracy3, label='test accuracy')
-    plt.xlabel('degree')
-    plt.ylabel('Accuracy')
-    plt.legend()
-    # 224 > 2行2列第4个
-    plt.subplot(224)
-    plt.plot(random_state_range, train_accuracy4, label='training accuracy')
-    plt.plot(random_state_range, test_accuracy4, label='test accuracy')
-    plt.xlabel('random state')
+    plt.plot(C_range, train_accuracy3, label='training accuracy')
+    plt.plot(C_range, test_accuracy3, label='test accuracy')
+    plt.xlabel('C, as kernel=poly')
     plt.ylabel('Accuracy')
     plt.legend()
 
@@ -277,5 +270,5 @@ if __name__ == '__main__':
     # svm_WNR_basic()
 
     # knn_WRN_Advanced()
-    naiveBayes_WNR_Advanced()
-    # svm_WNR_Advanced()
+    # naiveBayes_WNR_Advanced()
+    svm_WNR_Advanced()
