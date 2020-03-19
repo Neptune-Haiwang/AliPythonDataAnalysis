@@ -91,11 +91,9 @@ def knn_writen_numbers():
     plt.ylabel('Accuracy')
     plt.legend()
 
-
     # 展示 画图的结果
     plt.tight_layout()
     plt.show()
-
 
 if __name__ == '__main__':
     knn_writen_numbers()
