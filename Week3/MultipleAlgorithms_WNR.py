@@ -265,10 +265,10 @@ def svm_WNR_Advanced():
 
 
 if __name__ == '__main__':
-    # knn_WRN_basics()
+    knn_WRN_basics()
     # naiveBayes_WNR_basics()
     # svm_WNR_basic()
 
     # knn_WRN_Advanced()
     # naiveBayes_WNR_Advanced()
-    svm_WNR_Advanced()
+    # svm_WNR_Advanced()
