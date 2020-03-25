@@ -22,10 +22,33 @@
     
 ### STEP 1: 导入数据与划分数据集
     1。导入数据：使用 pandas.read_csv('https://.....', header='infer', index_col=None)
-    2。划分数据集：第一列 id 列给去掉，然后最后一列 default.payment.next.month 列 作为目标值，其他列作为特征值
+    2。随机抽样：DataFrame.sample(n=None, frac=None, replace=False, weights=None, random_state=None, axis=None)[source]
+            n=3：提取3行数据列表
+            frac=0.8： 抽取其中80%
+            random_state=None：取得数据不重复
+            random_state=1：可以取得重复数据
+            axis：选择抽取数据的行还是列
+                    axis=0: 在行中随机抽取n行
+                    axis=1: 在列中随机抽取n列
+            
+    3。划分数据集：第一列 id 列给去掉，然后最后一列 default.payment.next.month 列 作为目标值，其他列作为特征值
+            data=pd.read_excel("../data/yanben.xls");
+            print(data.head())
+            #iloc只能用数字索引，不能用索引名
+            #print(data.iloc[:,0:4])
+            ##loc只能通过index和columns来取，不能用数字
+            #print(data.loc[0:1,["序号","颜色","形状","重量"]])
+            #print(data['类别'])
+            x_data=data.iloc[:,0:4];
+            x_target=data['类别'];
 
 ### STEP 2 ：特征工程、数据预处理 - 数据规范化与数据降维
-    1。数据规范化：归一化、标准化
+    1。数据规范化：
+        1.1 归一化: sklearn.preprocessing.MinMaxScaler通过对原始数据进行变换把数据映射到(默认为[0,1])之间.
+                什么时候进行归一化？归一化的作用？:当三个特征同等重要的时候，进行归一化, 归一化使得某一个特征对最终结果不会造成更大的影响。
+                最大值与最小值非常容易受异常点影响，所以这种方法鲁棒性较差，只适合传统精确小数据场景。
+        1.2 标准化: 通过对原始数据进行变换把数据变换到均值为0,方差为1范围内.
+                在已有样本足够多的情况下比较稳定，适合现代嘈杂大数据场景。
     2。数据降维 - 主成分分析PCA：把高维数据转化为低维数据 -> 压缩数据，降低复杂度，损失少量信息
         2.1 PCA降维做的事情：找到一个合适的直线，通过一个矩阵运算得出主成分分析的结果
         2.2 API： sklearn.decomposition.PCA(n_components=None)
@@ -116,8 +139,8 @@
             
 ### STEP 4: 模型评估与模型测试：
     1。knn_y_predict = estimator_knn.predict(x_test)
-       estimator_knn.best_score_
-       estimator_knn.best_params_
+           estimator_knn.best_score_
+           estimator_knn.best_params_
     2。尝试传入真实的样本 丢给模型进行预测，并输出结果
     
 ### STEP 4.1: 分类器的性能评价原理
@@ -147,4 +170,8 @@
     1。sklearn中pipeline的实现,及GridSearchCV寻找最优参数   https://blog.csdn.net/qq_34211618/article/details/103685975
     2。pandas系列 read_csv 与 to_csv 方法各参数详解    https://blog.csdn.net/u010801439/article/details/80033341
     3。基于SVM、Pipeline、GridSearchCV的鸢尾花分类 https://blog.csdn.net/xiaosa_kun/article/details/84868406
-    4。一文读懂机器学习分类算法（附图文详解）   https://blog.csdn.net/Datawhale/article/details/100788726
+    4。数据样本，特征值，目标值，按比例划分    https://blog.csdn.net/u011066470/article/details/104447001
+    5。pandas数据处理基础——筛选指定行或者指定列的数据   https://www.cnblogs.com/gangandimami/p/8983323.html
+    6。sklearn中的Pipeline：    https://www.cnblogs.com/wuliytTaotao/p/9329695.html
+    7。一文读懂机器学习分类算法（附图文详解）   https://blog.csdn.net/Datawhale/article/details/100788726
+
