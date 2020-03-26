@@ -165,6 +165,13 @@
         如果分类器性能优越，则真正率将增加，曲线下的面积会接近于1.如果分类器类似于随机猜测，真正率将随假正率线性增加。AUC值越大，模型效果越好。
     5。累积精度曲线 CAP代表一个模型沿y轴为真正率的累积百分比与沿x轴的该分类样本累积百分比。
         CAP不同于接受者操作曲线（ROC，绘制的是真正率与假正率的关系）。与ROC曲线相比，CAP曲线很少使用。
+
+### 算法分析结论说明：
+    1。 初步分析：见 初步模型的输出结果.jpeg
+            减少了一点参数，去掉了gradient boosting 和 ada boost，运行时间缩短到17分钟了。
+            目前情况下，最好的模型是 随机森林模型， 预测准确率是 81.5%
+            随机森林模型最好，但是svm模型和随机森林模型结果很接近，而且svm模型运行速度更快，svm模型也是很不错的预测模型
+            
     
 ### 参考资源
     1。sklearn中pipeline的实现,及GridSearchCV寻找最优参数   https://blog.csdn.net/qq_34211618/article/details/103685975
@@ -174,4 +181,6 @@
     5。pandas数据处理基础——筛选指定行或者指定列的数据   https://www.cnblogs.com/gangandimami/p/8983323.html
     6。sklearn中的Pipeline：    https://www.cnblogs.com/wuliytTaotao/p/9329695.html
     7。一文读懂机器学习分类算法（附图文详解）   https://blog.csdn.net/Datawhale/article/details/100788726
-
+    8。python字典获取最大值的键的值 https://www.cnblogs.com/demo-deng/p/9634111.html
+    9。 机器学习各种算法结果可视化比对  https://blog.csdn.net/keepreder/article/details/47101585
+    

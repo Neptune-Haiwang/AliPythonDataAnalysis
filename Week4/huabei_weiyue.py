@@ -11,6 +11,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.ensemble import AdaBoostClassifier
+import datetime
 
 
 def huabei_numtiple_algorithms():
@@ -20,7 +21,7 @@ def huabei_numtiple_algorithms():
     # 查看一下 文件内容的前几行信息
     # print(local_path.head())
     # 文件过大，进行随机抽样, frac确定抽取的比例， random_state以确保可重复性的例子。
-    local_path = pd.DataFrame.sample(local_path, frac=0.1, random_state=1)
+    # local_path = pd.DataFrame.sample(local_path, frac=0.1, random_state=1)
     # local_path = local_path[0: 1000]
     # 2.1) 筛选特征值与目标值
     # 属性特征值的列范围为，第二列到倒数第二列
@@ -70,7 +71,6 @@ def huabei_numtiple_algorithms():
                       }
     # 4.2) SVM模型设置参数
     parameters_svm = {'pca__n_components': [0.40, 0.64, 0.85, 0.95],
-                      'svc__C': [1, 10],
                       'svc__kernel': ['rbf', 'linear']
                       }
     # 4.3) 决策树模型设置参数
@@ -129,20 +129,35 @@ def huabei_numtiple_algorithms():
     estimator_rfc = GridSearchCV(estimator_models[4], param_grid=parameters_rfc, cv=3)
     estimator_rfc.fit(x_train, y_train)
     print('随机森林模型最高预测准确率为: %.3f\t最好的参数组合为: %s' % (estimator_rfc.best_score_, estimator_rfc.best_params_))
-    # 5.6) Gradient Boosting模型评估与模型预测
-    estimator_gbc = GridSearchCV(estimator_models[5], param_grid=parameters_gbc, cv=3)
-    estimator_gbc.fit(x_train, y_train)
-    print('Gradient Boosting模型最高预测准确率为: %.3f\t最好的参数组合为: %s' % (estimator_gbc.best_score_, estimator_gbc.best_params_))
-    # 5.7) AdaBoost模型评估与模型预测
-    estimator_abc = GridSearchCV(estimator_models[6], param_grid=parameters_abc, cv=3)
-    estimator_abc.fit(x_train, y_train)
-    print('AdaBoost模型最高预测准确率为: %.3f\t最好的参数组合为: %s' % (estimator_abc.best_score_, estimator_abc.best_params_))
+    # # 5.6) Gradient Boosting模型评估与模型预测
+    # estimator_gbc = GridSearchCV(estimator_models[5], param_grid=parameters_gbc, cv=3)
+    # estimator_gbc.fit(x_train, y_train)
+    # print('Gradient Boosting模型最高预测准确率为: %.3f\t最好的参数组合为: %s' % (estimator_gbc.best_score_, estimator_gbc.best_params_))
+    # # 5.7) AdaBoost模型评估与模型预测
+    # estimator_abc = GridSearchCV(estimator_models[6], param_grid=parameters_abc, cv=3)
+    # estimator_abc.fit(x_train, y_train)
+    # print('AdaBoost模型最高预测准确率为: %.3f\t最好的参数组合为: %s' % (estimator_abc.best_score_, estimator_abc.best_params_))
 
-    # 5.2) 算法模型结果可视化
+    score_dict = {
+        'KNN模型': estimator_knn.best_score_,
+        'SVM模型': estimator_svm.best_score_,
+        '决策树模型': estimator_dtc.best_score_,
+        'Logistic回归模型': estimator_lr.best_score_,
+        '随机森林模型': estimator_rfc.best_score_
+    }
+    k = max(score_dict, key=score_dict.get)
+    print('\n结论: 最好的模型为 %s, 且该模型的最佳预测准确率为：%s' % (k, score_dict.get(k)))
+
+    # 6) 算法模型结果可视化
     # TODO 此部分可视化尚未完成 25/03/2020
 
 
 
 
 if __name__ == '__main__':
+    start_t = datetime.datetime.now()
+    print('模型计算开始时间为: %s\n' % start_t)
     huabei_numtiple_algorithms()
+    end_t = datetime.datetime.now()
+    period_t = end_t - start_t
+    print('\n算法模型运行总耗时为：%s' % period_t)
