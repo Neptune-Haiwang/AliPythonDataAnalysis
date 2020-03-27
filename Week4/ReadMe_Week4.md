@@ -145,7 +145,11 @@
     
 ### STEP 4.1: 分类器的性能评价原理
     1。混淆矩阵：混淆矩阵是一张表，这张表通过对比已知分类结果的测试数据的预测值和真实值表来描述衡量分类器的性能。
-        在二分类的情况下，混淆矩阵是展示预测值和真实值四种不同结果组合的表。(TN) FP FN (TP)
+        在二分类的情况下，混淆矩阵是展示预测值和真实值四种不同结果组合的表。        
+                        猜中      猜错
+             正例       TP        FP 
+             反例       TN        FN
+        
             FN：被错误的分为 负类 的数据，（即 真实为 正，预测为 负）。
             TP：被正确的分为 正类 的数据，（即 真实为 正，预测也为 正）。 
         1.1 假正例&假负例：假正例和假负例用来衡量模型预测的分类效果。假正例是指模型错误地将负例预测为正例。假负例是指模型错误地将正例预测为负例。
@@ -181,6 +185,9 @@
     5。pandas数据处理基础——筛选指定行或者指定列的数据   https://www.cnblogs.com/gangandimami/p/8983323.html
     6。sklearn中的Pipeline：    https://www.cnblogs.com/wuliytTaotao/p/9329695.html
     7。一文读懂机器学习分类算法（附图文详解）   https://blog.csdn.net/Datawhale/article/details/100788726
-    8。python字典获取最大值的键的值 https://www.cnblogs.com/demo-deng/p/9634111.html
-    9。 机器学习各种算法结果可视化比对  https://blog.csdn.net/keepreder/article/details/47101585
+    8。python字典获取最大值的键的值： https://www.cnblogs.com/demo-deng/p/9634111.html
+    9。sklearn计算准确率、精确率、召回率、F1 score: https://blog.csdn.net/hfutdog/article/details/88085878
+    10. SKLearn中预测准确率函数介绍   https://www.cnblogs.com/hd-chenwei/p/a679d6eee216db0b261e0ebf855545ec.html
+    
+    。 机器学习各种算法结果可视化比对  https://blog.csdn.net/keepreder/article/details/47101585
     
