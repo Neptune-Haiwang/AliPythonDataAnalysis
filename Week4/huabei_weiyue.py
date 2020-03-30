@@ -81,15 +81,22 @@ def huabei_numtiple_algorithms():
                       'knn__weights': ['uniform', 'distance']
                       }
     # 4.2) SVM模型设置参数
-    parameters_svm = {'pca__n_components': [0.40, 0.64, 0.85, 0.95],
-                      'svc__kernel': ['rbf', 'linear']
-                      }
+    parameters_svm = [{'pca__n_components': [0.40, 0.64, 0.85, 0.95],
+                       'svc__C': [1, 3, 5, 7, 9, 11, 13, 15, 17, 19],
+                       'svc__gamma': [0.00001, 0.0001, 0.001, 0.1, 1, 10, 100, 1000],
+                       'svc__kernel': ['rbf']
+                       },
+                      {'pca__n_components': [0.40, 0.64, 0.85, 0.95],
+                       'svc__C': [1, 3, 5, 7, 9, 11, 13, 15, 17, 19],
+                       'svc__kernel': ['linear']
+                       }]
+
     # 4.3) 决策树模型设置参数
     parameters_dtc = {'pca__n_components': [0.40, 0.64, 0.85, 0.95],
                       'dtc__criterion': ['gini', 'entropy'],
                       'dtc__splitter': ['best', 'random'],
                       'dtc__max_features': [None, 'log2', 'sqrt'],
-                      'dtc__max_depth': [None, 10, 50, 100]
+                      'dtc__max_depth': [None, 5, 8, 15, 25, 30]
                       }
     # 4.4) Logistic回归模型设置参数
     parameters_lr = [{'pca__n_components': [0.40, 0.64, 0.85, 0.95],
@@ -102,9 +109,10 @@ def huabei_numtiple_algorithms():
                      }]
     # 4.5) 随机森林模型设置参数
     parameters_rfc = {'pca__n_components': [0.40, 0.64, 0.85, 0.95],
-                      'rfc__n_estimators': [10, 50, 100],
+                      'rfc__n_estimators': [10, 100, 500],  # 森林中树木的数量
                       'rfc__criterion': ['gini', 'entropy'],
-                      'rfc__max_depth': [None, 10, 50, 100],
+                      'rfc__max_depth': [None, 5, 8, 15, 25, 30],
+                      'rfc__max_features': ['sqrt', 'log2', None] # 解释示例 max_features = log2(n_features)
                       }
     # # 4.6) Gradient Boosting模型设置参数
     # parameters_gbc = {'pca__n_components': [0.40, 0.64, 0.85, 0.95],
