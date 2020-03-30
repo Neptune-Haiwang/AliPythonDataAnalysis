@@ -23,6 +23,7 @@ def login_weibo(usr_name, usr_passwd):
     wd.find_element_by_id('loginAction').click()
 
 
+
 def follow_comment_a_user(keyword_id, weibo_no, comment_content):
     """2。关注用户，处理弹窗，找到对应的微博，定位到对应评论区并添加评论
 
@@ -104,9 +105,9 @@ def post_a_new_weibo(blog_content, blog_link):
 
 
 if __name__ == "__main__":
-    login_weibo('*****', '*****')
-    follow_comment_a_user('6060307497', 3, '有意思～')
-    unfollow_a_user('6060307497')
-    post_a_new_weibo('这是一个来自自动化测试所给出的测试内容', 'www.baidu.com')
+    login_weibo(usr_name='****', usr_passwd='*****')
+    follow_comment_a_user(keyword_id='6060307497', weibo_no=3, comment_content= '有意思～')
+    unfollow_a_user(keyword_id='6060307497')
+    post_a_new_weibo(blog_content= '这是一个来自自动化测试所给出的测试内容', blog_link= 'www.baidu.com')
     # 完成所有操作后返回到微博主页
     wd.get('https://m.weibo.cn')
