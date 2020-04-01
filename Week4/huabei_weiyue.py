@@ -25,7 +25,7 @@ def huabei_numtiple_algorithms():
     '''
     # 第一步： 读取数据 - 在线文件过大，下载到本地路径予以打开
     # local_path = pd.read_csv("https://www.dropbox.com/s/nn9g44vb2frfx5t/alipay_huabei_GS1.csv?dl=0")
-    local_path = pd.read_csv("/Users/haiwangluo/Desktop/alipay_huabei_GS1.csv")
+    local_path = pd.read_csv("/Users/haiwangluo/Desktop/alipython_files/alipay_huabei_GS1.csv")
     # 查看一下 文件内容的前几行信息
     # print(local_path.head())
     # 文件过大，进行随机抽样, frac确定抽取的比例， random_state以确保可重复性的例子。
