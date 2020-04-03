@@ -154,7 +154,8 @@
         min_child_weight：1，1，1
         ...
 
-
+    3。代码文件：https://github.com/Neptune-Haiwang/AliPythonDataAnalysis/blob/master/Week5/huabei_fs1.py
+       说明文档：https://github.com/Neptune-Haiwang/AliPythonDataAnalysis/blob/master/Week5/Read_Week5.md
 
 
 # 参考资源
