@@ -172,4 +172,5 @@
     11. 
         Scikit中的特征选择，XGboost进行回归预测，模型优化的实战  https://blog.csdn.net/sinat_35512245/article/details/79668363
         XGboost数据比赛实战之调参篇(完整流程) https://blog.csdn.net/sinat_35512245/article/details/79700029
-    
+    12. pandas的DataFrame的append方法详细介绍   https://blog.csdn.net/sinat_29957455/article/details/84961936
+    13. 十分钟AI知识点】pandas最详细教程    https://zhuanlan.zhihu.com/p/99889912
