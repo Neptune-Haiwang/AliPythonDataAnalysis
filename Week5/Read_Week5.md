@@ -78,6 +78,83 @@
         提升法boosting：（序列集成）是一种将弱学习器转换为强学习器的算法, 根据基学习器的表现对训练样本进行调整，然后基于调整后的样本分布来训练下一个基学习器。
         堆叠法stacking： 考虑的是异质弱学习器，并行地学习它们、并通过训练一个「元模型」将它们组合起来，根据不同弱模型的预测结果输出一个最终的预测结果。
 
+# 进一步探索
+    1。随机森林的剪枝：集成学习在实践中的训练效果很好  如果在测试集中的表现都是100% 那应该是过拟合了 考虑一下剪枝 
+        * n_estimators：这是森林中树木的数量，即基评估器的数量。n_estimators越大，模型的效果往往越好。
+        * max_features：决策树划分时考虑的最大特征数。max_features 值越大，模型学习能学习到的信息越多，越容易过拟合。
+        * max_depth：决策树最大深度。常用的可以取值10-100之间。值越大，决策树越复杂，越容易过拟合。
+        * min_samples_split：内部节点再划分所需最小样本数。值越大，决策树越简单，越不容易过拟合。
+        * min_samples_leaf：叶子节点最少样本数。值越大，叶子节点越容易被被剪枝，决策树越简单，越不容易过拟合。
+        * max_leaf_nodes: 最大叶子节点数。值越小，叶子节点个数越少，可以防止过拟合。
+    2。Adaboost剪枝:
+        * n_estimators:基分类器提升（循环）次数，默认是50次，这个值过大，模型容易过拟合；值过小，模型容易欠拟合。
+        * learning_rate:学习率，表示梯度收敛速度，默认为1，如果过大，容易错过最优值，如果过小，则收敛速度会很慢
+        * algorithm:boosting算法，也就是模型提升准则，有两种方式SAMME, 和SAMME.R两种，默认是SAMME.R，两者的区别主要是弱学习器权重的度量。
+                SAMME是对样本集预测错误的概率进行划分的，SAMME.R是对样本集的预测错误的比例，即错分率进行划分的，默认是用的SAMME.R。 
+        * random_state: 随机种子设置
+    
+    3。xgboost 
+        3.1 传统的GBDT，(gradient boosting decision tree)也就是梯度提升决策树:
+                这是一种基于树的集成算法.多棵树的集合就构成了GBDT。其实GBDT是对残差的拟合.
+                GBDT的目标函数是预测值和真实值差的累加，也就是误差累加，可以看出每一步计算都依赖于上面所有步的误差，效率比较低
+        3.2 xgboost特点：
+            3.2.1 传统GBDT以CART作为基分类器，xgboost还支持线性分类器，
+                    这个时候xgboost相当于带L1和L2正则化项的逻辑斯蒂回归（分类问题）或者线性回归（回归问题）。
+                -- 可以通过booster [default=gbtree]设置参数:gbtree: tree-based models/gblinear: linear models
+            3.2.2 传统GBDT在优化时只用到一阶导数信息，xgboost则对代价函数进行了二阶泰勒展开，同时用到了一阶和二阶导数。
+                    顺便提一下，xgboost工具支持自定义代价函数，只要函数可一阶和二阶求导。
+                -- 对损失函数做了改进（泰勒展开，一阶信息g和二阶信息h）
+            3.2.3 xgboost在代价函数里加入了正则项，用于控制模型的复杂度。
+                    正则项里包含了树的叶子节点个数、每个叶子节点上输出的score的L2模的平方和。
+                    从Bias-variance tradeoff角度来讲，正则项降低了模型variance，使学习出来的模型更加简单，防止过拟合，
+                    这也是xgboost优于传统GBDT的一个特性 
+                -- 正则化包括了两个部分，都是为了防止过拟合，剪枝是都有的，叶子结点输出L2平滑是新增的。
+            3.2.4 shrinkage and column subsampling
+                    shrinkage缩减类似于学习速率，在每一步tree boosting之后增加了一个参数n（权重），通过这种方式来减小每棵树的影响力，给后面的树提供空间去优化模型。
+                    column subsampling列(特征)抽样，说是从随机森林那边学习来的，防止过拟合的效果比传统的行抽样还好（行抽样功能也有），并且有利于后面提到的并行化处理算法。
+            3.2.5 split finding algorithms(划分点查找算法)
+                    split finding algorithms(划分点查找算法)
+                    approximate algorithm— 近似算法，提出了候选分割点概念，先通过直方图算法获得候选分割点的分布情况，然后根据候选分割点将连续的特征信息映射到不同的buckets中，并统计汇总信息。
+                    Weighted Quantile Sketch—分布式加权直方图算法
+                    可并行的近似直方图算法。树节点在进行分裂时，我们需要计算每个特征的每个分割点对应的增益，即用贪心法枚举所有可能的分割点。
+                    当数据无法一次载入内存或者在分布式情况下，贪心算法效率就会变得很低，所以xgboost还提出了一种可并行的近似直方图算法，用于高效地生成候选的分割点。
+            3.2.6 对缺失值的处理。对于特征的值有缺失的样本，xgboost可以自动学习出它的分裂方向。 
+            3.2.7 Built-in Cross-Validation（内置交叉验证)
+            3.2.8 continue on Existing Model（接着已有模型学习）
+            3.2.9 High Flexibility（高灵活性）
+            3.2.10 并行化处理 —系统设计模块,块结构设计等   
+    3.3 模型参数
+        * max_depth:int |每个基本学习器树的最大深度，可以用来控制过拟合。典型值是3-10
+        * learning_rate=0.1：即是eta，为了防止过拟合，更新过程中用到的收缩步长，使得模型更加健壮。典型值一般设置为：0.01-0.2。
+        * n_estimators=100,估计器的数量
+        * objective：定义学习任务及相应的学习目标，可选目标函数如下：
+                “reg:linear”          —— 线性回归
+            　　“reg:logistic”        —— 逻辑回归 
+            　　“binary:logistic”    —— 二分类的逻辑回归问题，输出为概率
+            　　“binary:logitraw”  —— 二分类的逻辑回归问题，输出的结果为wTx            
+            　　“count:poisson”   —— 计数问题的poisson回归，输出结果为poisson分布。在poisson回归中，max_delta_step的缺省值为0.7。(used to safeguard optimization)            
+            　　“multi:softmax”    —— 让XGBoost采用softmax目标函数处理多分类问题，同时需要设置参数num_class（类别个数）。返回预测的类别(不是概率)。            
+            　　“multi:softprob”   —— 和softmax一样，但是输出的是ndata * nclass的向量，可以将该向量reshape成ndata行nclass列的矩阵。每行数据表示样本所属于每个类别的概率。            
+            　　“rank:pairwise”   —— set XGBoost to do ranking task by minimizing the pairwise loss
+        * booster: default="gbtree"，可选gbtree和gblinear，gbtree使用基于树的模型进行提升计算，gblinear使用线性模型进行提升计算
+        * n_jobs：线程数目
+        * gamma：0，损失阈值，在树的一个叶节点上进行进一步分裂所需的最小损失减少量，越大，算法越保守。取值范围为：[0,∞]。
+                在节点分裂时，只有分裂后损失函数的值下降了，才会分裂这个节点。Gamma指定了节点分裂所需的最小损失函数下降值。
+                这个参数的值越大，算法越保守。这个参数的值和损失函数息息相关，所以是需要调整的。
+        * min_child_weight=1, 拆分节点权重和阈值，如果节点的样本权重和小于该阈值，就不再进行拆分。在现行回归模型中，这个是指建立每个模型所需要的最小样本数。越大，算法越保守，可以用来减少过拟合。 取值范围为：[0,∞]
+        * max_delta_step=0, 每棵树的最大权重估计。如果它的值被设置为0，意味着没有约束；如果它被设置为一个正值，它能够使得更新的步骤更加保守。通常这个参数是没有必要的，但是如果在逻辑回归中类别极其不平衡这时候他有可能会起到帮助作用。把它范围设置为1-10之间也许能控制更新。 取值范围为：[0,∞]
+        * scale_pos_weight=1,用来控制正负样本的比例，平衡正负样本权重，处理样本不平衡。在类别高度不平衡的情况下，将参数设置大于0，可以加快收敛。
+        
+ # 调参数及算法结论：
+    1。随机森林：准确率 0.99939，训练时间22秒； adaboost：准确率0.99939，训练时间2分钟； XGBoost：准确率0.99961，训练时间2分钟。
+    2。XGBOOST 调参数过程：
+        n_estimators    ：10，15，12，11，11，11
+        max_depth       ：80，70，68，67，62，60，55，54，54   
+        learning_rate   ：1，1，1
+        min_child_weight：1，1，1
+        ...
+
+
 
 
 # 参考资源
@@ -86,3 +163,12 @@
     3。Ensemble Learning常见方法总结（Bagging、Boosting、Stacking、Blending）   https://blog.csdn.net/FrankieHello/article/details/81664135
     4。使用sklearn进行集成学习——理论   https://www.cnblogs.com/jasonfreak/p/5657196.html
     5. 集成学习总结 & Stacking方法详解    https://blog.csdn.net/willduan1/article/details/73618677
+    6. 随机森林sklearn FandomForest，及其调参    https://blog.csdn.net/geduo_feng/article/details/79558572
+    7. sklearn 集成学习AdaBoostClassifier参数详解   https://blog.csdn.net/JohnsonSmile/article/details/88759761
+    8。xgboost入门与实战（原理篇） https://blog.csdn.net/sb19931201/article/details/52557382
+    9。Mac Ananconda Python下载安装 xgboost【可参考多个报错类型】   https://blog.csdn.net/hahameier/article/details/105027178
+    10. xgboost的sklearn接口和原生接口参数详细说明及调参指点   https://www.cnblogs.com/wzdLY/p/9831282.html
+    11. 
+        Scikit中的特征选择，XGboost进行回归预测，模型优化的实战  https://blog.csdn.net/sinat_35512245/article/details/79668363
+        XGboost数据比赛实战之调参篇(完整流程) https://blog.csdn.net/sinat_35512245/article/details/79700029
+    

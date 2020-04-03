@@ -2,10 +2,10 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.pipeline import Pipeline
-from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 import datetime
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
+from xgboost import XGBClassifier
 
 
 def huabei_wei():
@@ -25,20 +25,20 @@ def huabei_wei():
 
     # 第三步：构造各种分类器
     estimator_models = [
-        Pipeline(steps=[('svc', SVC(random_state=1, kernel='rbf'))]),
-        Pipeline(steps=[('rfc', RandomForestClassifier(random_state=1, criterion='gini'))]),
-        Pipeline(steps=[('abc', AdaBoostClassifier(random_state=1, algorithm='SAMME.R'))])
+        Pipeline(steps=[('rfc', RandomForestClassifier(random_state=1))]),
+        Pipeline(steps=[('abc', AdaBoostClassifier(random_state=1))]),
+        Pipeline(steps=[('xgbc', XGBClassifier(random_state=1))])
     ]
     # 第四步：设置分类器的参数
     parameters_list = [
-        {'svc__C': [1], 'svc__gamma': [0.01]},
-        {'rfc__max_depth': [6, 9, 11], 'rfc__n_estimators': [3, 5, 9]},
-        {'abc__n_estimators': [10, 50], 'abc__learning_rate': [0.1, 1.0, 10]}
+        {'rfc__max_depth': [9], 'rfc__n_estimators': [9], 'rfc__min_samples_leaf': [10], 'rfc__criterion': ['gini']},
+        {'abc__n_estimators': [50], 'abc__learning_rate': [1.0], 'abc__algorithm': ['SAMME.R']},
+        {'xgbc__max_depth': [11], 'xgbc__n_estimators': [54], 'xgbc__learning_rate': [1.0], 'xgbc__min_child_weight': [1]}
     ]
     # 第五步：对具体的分类器进行GridSearchCV参数调优
-    # gridsearchcv_works(x_train, x_test, y_train, y_test, 'SVM支持向量机算法', estimator_models[0], parameters_list[0])
-    gridsearchcv_works(x_train, x_test, y_train, y_test, '随机森林算法', estimator_models[1], parameters_list[1])
-    gridsearchcv_works(x_train, x_test, y_train, y_test, 'AdaBoost提升算法', estimator_models[2], parameters_list[2])
+    gridsearchcv_works(x_train, x_test, y_train, y_test, '随机森林算法', estimator_models[0], parameters_list[0])
+    gridsearchcv_works(x_train, x_test, y_train, y_test, 'AdaBoost提升算法', estimator_models[1], parameters_list[1])
+    gridsearchcv_works(x_train, x_test, y_train, y_test, 'XGBoost分类提升算法', estimator_models[2], parameters_list[2])
 
 
 def gridsearchcv_works(x_train, x_test, y_train, y_test, estimator_name, estimator_model, params):
@@ -62,7 +62,7 @@ def gridsearchcv_works(x_train, x_test, y_train, y_test, estimator_name, estimat
     print('%s模型的最优参数组合为： %s' % (estimator_name, estimator.best_params_))
     print('%s模型的最优分数为：%.5f\t准确率为：%.5f' % (estimator_name, estimator.best_score_, accuracy_score(y_test, y_predict)))
     print('%s模型的分类结果报告：\n%s' % (estimator_name, classification_report(y_test, y_predict, target_names=['0 正常(非欺诈)', '1 代表欺诈'])))
-    print('%s模型的混淆矩阵为：\n%s' % (estimator_name, confusion_matrix(y_test, y_predict)))
+    print('%s模型的混淆矩阵为：\n\t%s' % (estimator_name, confusion_matrix(y_test, y_predict)))
     time_period = datetime.datetime.now() - time_start
     print('%s模型的训练总耗时为：%s' % (estimator_name, time_period))
 

@@ -31,3 +31,12 @@
     华中理工大学：http://pypi.hustunique.com/
     山东理工大学：http://pypi.sdutlinux.org/
     中国科学技术大学：http://pypi.mirrors.ustc.edu.cn/
+    
+    Homebrew 使用国内镜像 https://blog.csdn.net/iroguel/article/details/93481795
+    Mac HomeBrew国内镜像安装方法    https://blog.csdn.net/weixin_34067980/article/details/88008241
+            cd "$(brew --repo)"
+            git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+            cd "$(brew --repo)/Library/Taps/homebrew/homebrew-cask"
+            echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles' >> ~/.bash_profile
+    
+
