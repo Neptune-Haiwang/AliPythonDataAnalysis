@@ -9,13 +9,15 @@
       <sourceFolder url="file://$MODULE_DIR$/Week2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Week2/Weibo_auto_Demo_study" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Week2/D_正则表达式学习" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Week2/Python_常见问题集锦" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Python_常见问题集锦" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Week2/KNN_其他探索" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Week3" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Week3/机器学习提升教程" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Week3/机器学习算法教程" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Week4" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Week5" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/Matplotlib知识点及应用" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7 (standard)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
