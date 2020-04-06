@@ -15,7 +15,7 @@ def huabei_wei():
     # data = pd.read_csv('https://www.dropbox.com/s/qk3u8j529tgj72d/alipay_huabei_FS1.csv?dl=0')
     data = pd.read_csv('/Users/haiwangluo/Desktop/alipython_files/alipay_huabei_FS1.csv')
     # 筛选特征值
-    x_data = data.iloc[:, 1: -2]
+    x_data = data.iloc[:, 1: -2]    # [行开始索引:行结束索引， 列开始索引:列结束索引]
     # print(x_data.head())
     # 筛选目标值
     x_target = data['Class']
