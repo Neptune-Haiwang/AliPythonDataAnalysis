@@ -309,9 +309,14 @@
             问题3：对于这一组电影数据，如果我们希望统计电影分类(genre)的情况，应该如何处理数据？
     2。实现：
         2.1 我们想知道这些电影数据中评分的平均分，导演的人数等信息，我们应该怎么获取？
+            %matplotlib inline
+            import pandas  as pd 
+            import numpy as np
+            from matplotlib import pyplot as plt
+            
             df = pd.read_csv("./data/IMDB-Movie-Data.csv")    # 读取文件
             df["Rating"].mean()     # 得出评分的平均分
-            np.unique(df["Director"]).shape[0]    # 得出导演人数信息
+            np.unique(df["Director"]).shape[0]    # 得出导演人数信息，去重复
             
         2.2 对于这一组电影数据，如果我们想rating，runtime的分布情况，应该如何呈现数据？
             df["Rating"].plot(kind='hist',figsize=(20,8))    # 直接呈现，以直方图的形式
@@ -326,11 +331,9 @@
             max_ = df["Rating"].max()
             min_ = df["Rating"].min()
             # 生成刻度列表
-            t1 = np.linspace(min_,max_,num=21)    # [ 1.9    2.255  2.61   2.965  3.32   3.675  4.03   4.385  4.74   5.095  5.45   5.805  6.16   6.515  6.87   7.225  7.58   7.935  8.29   8.645  9.   ]   
-            # 修改刻度
-            plt.xticks(t1)
-            # 添加网格
-            plt.grid()
+            t1 = np.linspace(min_,max_,num=21)    # 分成20组，需要21个刻度值
+            plt.xticks(t1)  # 修改刻度
+            plt.grid()  # 添加网格
             
             # Runtime (Minutes)进行分布展示
             plt.figure(figsize=(20,8),dpi=80)
@@ -345,17 +348,21 @@
             plt.xticks(np.linspace(min_,max_,num=21))          
             # 添加网格
             plt.grid()
+            plt.show() 
               
         2.3 对于这一组电影数据，如果我们希望统计电影分类(genre)的情况，应该如何处理数据？
             # 1。创建一个全为0的dataframe，列索引置为电影的分类，temp_df
-            temp_list = [i.split(",") for i in df["Genre"]]    # 进行字符串分割
+            temp_list = [i.split(",") for i in df["Genre"]]    # 进行字符串分割 
+            # 此时得到的分类列表是类似于：[['A','B','D'],['B'],['C','D']]
             genre_list = np.unique([i for j in temp_list for i in j])     # 获取电影的分类
-            temp_df = pd.DataFrame(np.zeros([df.shape[0],genre_list.shape[0]]),columns=genre_list)     # 增加新的列
+            zeros = np.zeros([df.shape[0], genre_list.shape[0]])
+            temp_df = pd.DataFrame(zeros, columns=genre_list)     # 增加新的列
             # 2。遍历每一部电影，temp_df中把分类出现的列的值置为1
             for i in range(1000):
                 #temp_list[i] ['Action','Adventure','Animation']
                 temp_df.ix[i,temp_list[i]]=1
             print(temp_df.sum().sort_values())
             # 3。求和,绘图
-            temp_df.sum().sort_values(ascending=False).plot(kind="bar",figsize=(20,8),fontsize=20,colormap="cool")
+            genre = temp_df.sum().sort_values(ascending=False)
+            genre.plot(kind="bar",figsize=(20,8),fontsize=20,colormap="cool")
     
