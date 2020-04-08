@@ -13,9 +13,9 @@ def titanic():
     # 2 数据基本处理
     # 2.1 确定特征值,目标值
     x = titan[["pclass", "age", "sex"]]
-    y = titan['survived']
+    y = titan["survived"]
     # 2.2 缺失值处理
-    x['age'] = x['age'].fillna(x['age'].mean(), inplace=True)
+    x['age'].fillna(x['age'].mean(), inplace=True)
     # 2.3 数据集划分
     x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=22)
 
