@@ -21,6 +21,7 @@
       <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/Numpy知识点及应用" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/Pandas知识点及应用" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/线性回归" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/逻辑斯谛回归" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7 (standard)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
