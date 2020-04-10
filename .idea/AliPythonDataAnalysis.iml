@@ -26,6 +26,12 @@
       <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/集成学习算法" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/聚类算法" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Week6" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/深度学习" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week6/attempt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week6/attempt/data" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week6/attempt2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week6/attempt2/Job_Data" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week6/attempt2/data" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7 (standard)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
