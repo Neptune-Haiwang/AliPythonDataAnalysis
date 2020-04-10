@@ -48,10 +48,12 @@ def get_job_info(keyword):
             jobs_result.append(job)
     df = pd.DataFrame(jobs_result)
     path = './data/{}.csv'.format(keyword)  # 要存储路径
-    with open(path, 'w', encoding='utf-8') as f:
+    with open(path, 'w', encoding='utf-8') as f:   # with open 操作，没有文件则创建文件
+        # 先写入表头
         fieldnames = ['job_title', 'job_country', 'job_city', 'job_category', 'job_responsibility', 'job_available']
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
+    # 后面的内容直接追加即可
     df.to_csv(path, mode='a+', header=None, encoding='utf-8')   # 采用追加的方式存储数据
 
 
