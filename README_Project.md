@@ -1,28 +1,31 @@
 # AliPythonDataAnalysis
 这个项目为2020年3月初-5月初在阿里远程实习的实习内容总结
     
-### 现已完成的任务
-  
-### week1
-* 一个豆瓣爬虫程序：包含对json数据的处理
-  
-### week2
-* 一个微博机器人：自动登录，自动关注用户，找到某个微博，添加评论，取关用户，自己写微博并发表
-* 用knn算法识别手写数字，调整knn的不同的超参数，并用 matplotlib画图查看参数的变化对算法模型准确率的影响。
+## 课题涉及的实验任务梳理总结
+### 数据获取方面：
+- 网站爬虫(爬取json格式的数据)：
+    * 静态网站的爬虫：Week1/spider_chenglong_poster/spider_douban_posters.py
+    * 动态网站的爬虫（主要是时间戳的处理与设置）: Week6_7/attempt2/spider_tencent1.py
+- selenium，web自动化:
+    * selenium，web自动化、使用 xpath或者 css selector 获取数据: Week2/weibo_auto.py
+### 数据挖掘算法原理：
+- 数据处理：matplotlib, numpy, pandas,
+- 机器学习算法：
+    * 分类问题：KNN, 朴素贝叶斯，支持向量机，决策树，k-means聚类算法，逻辑斯谛回归， 集成学习算法（随机森林、xgboost）
+    * 回归问题：线性回归，岭回归，逻辑斯谛回归
+- 深度学习算法
+### 数据处理、分析（调参）、预测与可视化实战：
+- KNN: Week2/KNN_classifier2.py
+- 朴素贝叶斯、决策树、SVM支持向量机：Week3/MultipleAlgorithms_WNR.py
+- SVM支持向量机、Logistic回归、随机森林、Gradient Boosting、AdaBoost：Week4/huabei_weiyue.py
+- 随机森林、AdaBoost、XGBoost：Week5/huabei_fs1.py
+### 面试准备：
+- 常见PYTHON问题：机器学习算法基础/Python_常见问题集锦、 Week1/add_three_nums_sum_to_0.py
+- SVM参数更新的数学推导：Week3/svm参数推导.pdf
+- 数据挖掘面经：机器学习算法基础/数据挖掘面经.md
 
-### week3
-* 用朴素贝叶斯和SVM再实现同样的手写数字识别，调整参数查看变化
-* 了解更多关于SVM的算法逻辑知识，手写SVM参数推导公式
-    
-### week4
-* 用SVM和朴素贝叶斯模型 分析 花呗违约率分析的二分类问题
-
-### week5
-* 用集成学习算法 bagging, bossting, stacking 三种模式，对花呗欺诈问题进行判断
-
-# 超系统学习掌握人工智能机器学习算法基础
+### 系统学习掌握人工智能机器学习算法基础
     https://www.bilibili.com/video/BV1a7411d7fk
-
 # 网络下载源的问题
 这个正常步骤，在很多时候并不能安装成功，多数是因为网络被限制的原因，在这里提供一种方法，可以解决大部分情况下的安装问题，那就是修改下载来源。
 方法是在“Manage Repositories”中，修改数据来源，默认的是“https://pypi.python.org/simple”，我们可将其替换为如下的几个数据来源，这些都是国内的pip镜像：
