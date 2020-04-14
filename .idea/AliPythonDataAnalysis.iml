@@ -32,6 +32,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Week6_7/attempt2" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Week6/attempt2/Job_Data" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Week6_7/attempt2/data" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week6_7/Jobs_Courses_Datas" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7 (standard)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
