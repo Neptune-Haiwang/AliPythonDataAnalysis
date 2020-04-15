@@ -41,8 +41,8 @@ def get_job_info(url, path):
         jobs_result.append(job)
     # 把列表转成有行列索引的pandas中的二维数组对象
     df = pd.DataFrame(jobs_result)
-    # 追加内容到对应的CSV文件中
-    df.to_csv(path, mode='a+', header=None, encoding='utf-8')
+    # 追加内容到对应的CSV文件中,不要索引
+    df.to_csv(path, index=None, mode='a+', header=None, encoding='utf-8')
     return None
 
 
@@ -61,7 +61,7 @@ def save_all_jobs(path):
     # 递归对所有页面链接执行操作
     for u in get_page_link():
         get_job_info(u, path=path)
-        time.sleep(random.randint(1, 2))
+        time.sleep(1)
     return None
 
 
