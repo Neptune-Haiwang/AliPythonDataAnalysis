@@ -106,8 +106,8 @@ def jobs_preprocessing(path_jobs, path_jobs_processed, stop_words):
         fieldnames = ['Job_Title', 'Job_Responsibility', 'Job_Keywords_List']
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
-    jobs_data_processed.to_csv(path_jobs_processed, index=None, mode='a+', encoding='utf-8')
-    
+    jobs_data_processed.to_csv(path_jobs_processed, index=None, header=None, mode='a+', encoding='utf-8')
+
     return None
 
 

@@ -17,8 +17,6 @@
         ** IDF = log(N/ (1 + count(I(w_in_di)|{i=1,2,..N})))  , 加1是为了防止分母为0的情况
     * TF-IDF = TF * IDF (即：词频* 词权)
 - 转化为特征选择：对最后的作为选取特征的TF-IDF = max （TF(Ci,t)*IDF） or avg(TF(Ci,t)*IDF) 
-
-
 - 评价：TF-IDF算法的优点是简单快速，结果比较符合实际情况。缺点是，单纯以"词频"衡量一个词的重要性，不够全面，有时重要的词可能出现次数并不多
 
 
@@ -34,3 +32,5 @@
 - 删除DataFrame中值全为NaN或者包含有NaN的列或行    https://blog.csdn.net/calorand/article/details/53742290
 - DataFrame某些列值替换的三种方式  https://blog.csdn.net/weixin_37674494/article/details/82632621?utm_source=blogxgwz9
 - 机器学习-nlp-sklearn进行关键词提取（基于tfidf）  https://blog.csdn.net/wangjie5540/article/details/103811651
+
+- 推荐算法 协同过滤sklearn实现    https://blog.csdn.net/yangyang_yangqi/article/details/82782361
