@@ -36,10 +36,11 @@ def get_course_info(src, path):
     for i in range(10):
         course = {}
         course_name= content.xpath('//li[{}]//div[@class="coursename"]//h2/text()'.format(i+1))
-        if len(course_name) > 0:
+        if course_name:
             course['course_name'] = course_name[0]
         course_description = content.xpath('//li[{}]//div[@class="coursename"]//p[1]/text()'.format(i+1))
-        course['course_description'] = course_description
+        if course_description:
+            course['course_description'] = course_description[0]
         # print(course)
         course_results.append(course)
     df = pd.DataFrame(course_results)
