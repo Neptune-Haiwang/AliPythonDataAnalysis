@@ -13,15 +13,25 @@ def shuffle_data(x_data, y_target, seed=None):
     return x_data[idx], y_target[idx]
 
 
-# 正规化数据集 x_data
 def normalize(x_data, axis=-1, p=2):
+    '''
+    正规化数据集 x_data
+    @param x_data:
+    @param axis:
+    @param p:
+    @return:
+    '''
     lp_norm = np.atleast_1d(np.linalg.norm(x_data, p, axis))
     lp_norm[lp_norm == 0] = 1
     return x_data / np.expand_dims(lp_norm, axis)
 
 
-# 标准化数据集 x_data
 def standardize(x_data):
+    '''
+    标准化数据集 x_data
+    @param x_data:
+    @return:
+    '''
     x_std = np.zeros(x_data.shape)
     mean = x_data.mean(axis=0)
     std = x_data.std(axis=0)
@@ -32,8 +42,16 @@ def standardize(x_data):
     return x_std
 
 
-# 划分数据集为训练集和测试集
 def train_test_split(x_data, y_target, test_size=0.2, shuffle=True, seed=None):
+    '''
+    划分数据集为训练集和测试集
+    @param x_data:
+    @param y_target:
+    @param test_size:
+    @param shuffle:
+    @param seed:
+    @return:
+    '''
     if shuffle:
         x_data, y_target = shuffle_data(x_data, y_target, seed)
     n_train_samples = int(x_data.shape[0] * (1 - test_size))
@@ -44,6 +62,7 @@ def train_test_split(x_data, y_target, test_size=0.2, shuffle=True, seed=None):
 
 def accuracy_rate(y_test, y_predict):
     '''
+    模型算法的准确率计算
     reshape()函数
     当原始数组A[4,6]为二维数组，代表4行6列:
         * reshape(-1,8)：表示将数组转换成8列的数组，具体多少行我们不知道，所以参数设为-1。用我们的数学可以计算出是3行8列
