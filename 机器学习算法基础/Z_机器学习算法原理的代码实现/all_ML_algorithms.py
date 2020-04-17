@@ -59,4 +59,3 @@ def PCA_decomposition():
 if __name__=='__main__':
     knn_classification()
     # PCA_decomposition()
-    
