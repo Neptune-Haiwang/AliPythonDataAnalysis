@@ -118,9 +118,9 @@ if __name__=="__main__":
     stop_words = stop_words_dic.read().splitlines()
     stop_words_dic.close()
 
-    # path_course = './Jobs_Courses_Datas/courses_data.csv'
-    # path_course_processed = './Jobs_Courses_Datas/courses_data_processed.csv'
-    # course_preprocessing(path_course, path_course_processed, stop_words)
+    path_course = './Jobs_Courses_Datas/courses_data.csv'
+    path_course_processed = './Jobs_Courses_Datas/courses_data_processed.csv'
+    course_preprocessing(path_course, path_course_processed, stop_words)
 
     path_jobs = './Jobs_Courses_Datas/jobs_data.csv'
     path_jobs_processed = './Jobs_Courses_Datas/jobs_data_processed.csv'

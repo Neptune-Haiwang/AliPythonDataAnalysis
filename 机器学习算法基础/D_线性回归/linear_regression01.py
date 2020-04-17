@@ -44,10 +44,10 @@ def load_dump_demo():
     #
     # # 4.2 模型保存
     # # /Users/haiwangluo/Desktop/AliPythonDataAnalysis/机器学习算法基础/线性回归/test.pkl
-    # joblib.dump(estimator, "/Users/haiwangluo/Desktop/AliPythonDataAnalysis/机器学习算法基础/线性回归/test.pkl")
+    # joblib.dump(estimator, "/Users/haiwangluo/Desktop/AliPythonDataAnalysis/机器学习算法基础/D_线性回归/test.pkl")
 
     # # 4.3 模型加载
-    estimator = joblib.load("/Users/haiwangluo/Desktop/AliPythonDataAnalysis/机器学习算法基础/线性回归/test.pkl")
+    estimator = joblib.load("/Users/haiwangluo/Desktop/AliPythonDataAnalysis/机器学习算法基础/D_线性回归/test.pkl")
 
     # 5.模型评估
     # 5.1 获取系数等值

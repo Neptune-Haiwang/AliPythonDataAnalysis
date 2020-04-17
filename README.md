@@ -44,3 +44,8 @@ Mac HomeBrew国内镜像安装方法    https://blog.csdn.net/weixin_34067980/ar
         echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles' >> ~/.bash_profile
 
 大数据人才推荐系统 Talent RADAR  http://tech.it168.com/a2013/0805/1517/000001517009.shtml
+
+# 数据挖掘学习
+- BeautifulSoup的用法 https://blog.csdn.net/u013719780/article/details/49302111
+
+
