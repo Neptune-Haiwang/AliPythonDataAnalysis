@@ -42,6 +42,14 @@ def standardize(x_data):
     return x_std
 
 
+# 计算一个样本与训练集中所有样本的欧氏距离的平方
+def euclidean_distance(self, one_sample, x_train):
+    one_sample = one_sample.reshape(1, -1)
+    x_train = x_train.reshape(x_train.shape[0], -1)
+    distances = np.power(np.tile(one_sample, (x_train.shape[0], 1)) - x_train, 2).sum(axis = 1)
+    return distances
+
+
 def train_test_split(x_data, y_target, test_size=0.2, shuffle=True, seed=None):
     '''
     划分数据集为训练集和测试集

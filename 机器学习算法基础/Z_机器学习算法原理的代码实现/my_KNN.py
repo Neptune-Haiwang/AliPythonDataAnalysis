@@ -1,22 +1,17 @@
 import numpy as np
 from collections import Counter
+from my_Preprocessing import euclidean_distance
+
 
 '''
 KNN算法的实现模块
+https://blog.csdn.net/u013719780/article/details/78264636
 '''
 
-class KNN():
+class KNN_classifier():
 
     def __init__(self, k=5):
         self.k = k
-
-
-    # 计算一个样本与训练集中所有样本的欧氏距离的平方
-    def euclidean_distance(self, one_sample, x_train):
-        one_sample = one_sample.reshape(1, -1)
-        x_train = x_train.reshape(x_train.shape[0], -1)
-        distances = np.power(np.tile(one_sample, (x_train.shape[0], 1)) - x_train, 2).sum(axis = 1)
-        return distances
 
 
     # 获取k个近邻的类别标签(即训练集的目标值)
@@ -30,7 +25,7 @@ class KNN():
 
     # 进行标签统计，得票最多的标签就是该测试样本的预测标签
     def vote(self, one_sample, x_train, y_train, k):
-        distances = self.euclidean_distance(one_sample, x_train)
+        distances = euclidean_distance(self, one_sample, x_train)
         # print(distances.shape)
         y_train = y_train.reshape(y_train.shape[0], -1)
         k_neighbours_labels = self.get_k_labels(distances, y_train, k)

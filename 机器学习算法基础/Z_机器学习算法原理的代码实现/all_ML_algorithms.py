@@ -1,12 +1,13 @@
 from sklearn.datasets import make_classification, load_iris
-from my_Preprocessing import train_test_split, accuracy_rate
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.cm as cmx
 import numpy as np
 import pandas as pd
-from my_KNN import KNN
+from my_Preprocessing import train_test_split, accuracy_rate
+from my_KNN import KNN_classifier
 from my_PCA import PCA
+from my_NaiveBayes import NaiveBayes_classifier
 
 
 
@@ -20,8 +21,8 @@ def knn_classification():
     x_data, y_target = data[0], data[1]
     x_train, x_test, y_train, y_test = train_test_split(x_data, y_target, test_size=0.33, shuffle=True)
     # 调用封装好的文件中的类 -> 设置初始k
-    clf = KNN(k=5)  # clf 是创建的一个对象，用来调用各种函数方法
-    y_predict = clf.predict(x_test, x_train, y_train)
+    estimator = KNN_classifier(k=5)  # clf 是创建的一个对象，用来调用各种函数方法
+    y_predict = estimator.predict(x_test, x_train, y_train)
     accur = accuracy_rate(y_test, y_predict)
     print('预测准确率 %s' % accur)
     return None
@@ -54,8 +55,23 @@ def PCA_decomposition():
     plt.show()
 
 
+def NaiveBayes_classification():
+    x_data = np.array([
+        ['M','北京'], ['F', '上海'], ['M' ,'广州'], ['M' ,'北京'], ['F' ,'上海'],
+        ['M','北京'], ['F', '上海'], ['M' ,'广州'], ['M' ,'北京'], ['F' ,'上海']])
+    y_target = np.array([1,0,1,1,0,
+                         1,0,1,1,0])
+    x_train, x_test, y_train, y_test = train_test_split(x_data, y_target, test_size=0.3)
+    estimator = NaiveBayes_classifier()
+    estimator.fit(x_train, y_train)
+    y_predict = np.array(estimator.predict(x_test))
+    accu = accuracy_rate(y_test, y_predict)
+    print('预测准确率 %s' % accu)
+    return None
+
 
 
 if __name__=='__main__':
     knn_classification()
     # PCA_decomposition()
+    # NaiveBayes_classification()

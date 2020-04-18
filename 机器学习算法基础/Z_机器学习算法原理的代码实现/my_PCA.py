@@ -2,6 +2,8 @@ import numpy as np
 
 '''
 主成分分析(PCA)算法
+https://blog.csdn.net/u013719780/article/details/78352262
+
 '''
 
 
