@@ -1,14 +1,16 @@
-from sklearn.datasets import make_classification, load_iris
+from sklearn.datasets import make_classification, load_iris, make_blobs
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.cm as cmx
+from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 import pandas as pd
-from my_Preprocessing import train_test_split, accuracy_rate
+from my_Preprocessing import train_test_split, accuracy_rate, normalize
 from my_KNN import KNN_classifier
 from my_PCA import PCA
 from my_NaiveBayes import NaiveBayes_classifier
-
+from my_Kmeans import Kmeans
+from my_logisticRegression import LogisticRegression_classifier
 
 
 def knn_classification():
@@ -70,8 +72,49 @@ def NaiveBayes_classification():
     return None
 
 
+def kmeans_cluster():
+    # Load the dataset
+    x_data, y_target = make_blobs(n_samples=1000, n_features=3, centers=[[0,0,0], [1,1,1], [2,2,2],[3,3,3]],
+                                  cluster_std=[0.1, 0.2, 0.2, 0.2], random_state=9)
+    # 用Kmeans算法进行聚类
+    estimator = Kmeans(k=4)
+    y_predict = estimator.predict(x_data)
+    # 可视化聚类效果
+    fig = plt.figure(figsize=(12, 8))
+    ax = Axes3D(fig, rect=[0,0,1,1], elev=30, azim=20)
+    plt.scatter(x_data[y_target == 0][:, 0], x_data[y_target == 0][:, 1], x_data[y_target == 0][:, 2])
+    plt.scatter(x_data[y_target == 1][:, 0], x_data[y_target == 1][:, 1], x_data[y_target == 1][:, 2])
+    plt.scatter(x_data[y_target == 2][:, 0], x_data[y_target == 2][:, 1], x_data[y_target == 2][:, 2])
+    plt.scatter(x_data[y_target == 3][:, 0], x_data[y_target == 3][:, 1], x_data[y_target == 3][:, 2])
+    plt.show()
+
+
+def logisticregression_classification():
+    # 加载数据集
+    data = load_iris()
+    x_data = normalize(data.data[data.target != 0])
+    y_target = data.target[data.target != 0]
+    y_target[y_target == 1] = 0
+    y_target[y_target == 2] = 1
+    # 划分数据集
+    x_train ,x_test, y_train, y_test = train_test_split(x_data, y_target, test_size=0.3, seed=1)
+    # 进行预测
+    estimator = LogisticRegression_classifier()
+    estimator.fit(x_train, y_train)
+    y_predict = estimator.predict(x_test)
+    print('预测准确率为： %.5f' % accuracy_rate(y_test, y_predict))
+
+    plt.figure(figsize=(12,8))
+    plt.scatter(x_data[y_target == 0][:, 0], x_data[y_target == 0][:, 1])
+    plt.scatter(x_data[y_target == 1][:, 0], x_data[y_target == 1][:, 1])
+    plt.show()
+
+
+
 
 if __name__=='__main__':
-    knn_classification()
+    # knn_classification()
     # PCA_decomposition()
     # NaiveBayes_classification()
+    # kmeans_cluster()
+    logisticregression_classification()
