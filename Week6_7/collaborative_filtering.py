@@ -3,7 +3,31 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 
+def extract_keywords_list(text_data):
+    '''
+    用tf-idf法抽取关键词
+    @param text_data: 初始的文本数据
+    @return:
+    '''
+    # 从文件导入停用词表
+    stop_words_dic = open('./stop_words.txt', 'rb')
+    stop_words = stop_words_dic.read().splitlines()
+    stop_words_dic.close()
+
+
+
+
+
+
+
+
 def jobs_courses_matching():
+    '''
+    协同过滤算法进行岗位-课程匹配
+    # https://blog.csdn.net/m0_38045485/article/details/81174685
+    # https://blog.csdn.net/yangyang_yangqi/article/details/82782361
+    @return:
+    '''
 
     # 给工作推荐课程
     # 1 加载数据: 只选择 name 与 关键词
@@ -16,9 +40,9 @@ def jobs_courses_matching():
     n_jobs = jobs_data['Job_Title'].unique().shape[0]
     n_courses = courses_data['Course_Name'].unique().shape[0]
     print('职位数为：%s， 课程数为：%s' % (n_jobs, n_courses))
+    # 1.3 划分数据集
 
-    # https://blog.csdn.net/m0_38045485/article/details/81174685
-    # https://blog.csdn.net/yangyang_yangqi/article/details/82782361
+
 
 
 

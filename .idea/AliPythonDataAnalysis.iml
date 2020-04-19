@@ -35,6 +35,8 @@
       <sourceFolder url="file://$MODULE_DIR$/Week6_7/Jobs_Courses_Datas" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/Z_机器学习算法原理的代码实现" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/D_线性回归" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/电影推荐系统" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Template" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7 (standard)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

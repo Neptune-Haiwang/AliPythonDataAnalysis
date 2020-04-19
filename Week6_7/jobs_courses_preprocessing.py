@@ -26,17 +26,9 @@ def extract_keywords(text_data, stop_words):
     t_feature_names = tv.get_feature_names()
     # 特征词的TFIDF权重值
     # t_weights = tv_fit.toarray()
-    item_keywords= []
-    # # 以 权重值 为指标对特征词进行降序排序，从而可以取得最重要的top N 关键词
-    # # zip 打包中的数据：索引0： t_feature_names； 索引1： t_weights
-    # sorted_keywords = sorted(zip(t_feature_names, t_weights), key=lambda x:x[1], reverse=True)
-    # print(sorted_keywords)
-    # # top N 关键词列表为前n项的数据
-    # item_keywords = [w[0] for w in sorted_keywords[: top_n]]
-    item_keywords.append(t_feature_names)
-    # print(item_keywords)
-    return item_keywords
-
+    # 去除是数字的特征词
+    t_feature_names = list(filter(lambda x: not str(x).isdigit(), t_feature_names))
+    return t_feature_names
 
 
 def course_preprocessing(path_course, path_course_processed, stop_words):
@@ -63,11 +55,9 @@ def course_preprocessing(path_course, path_course_processed, stop_words):
         c_info_data = courses_data_processed.iloc[i, 1].replace('\\n', '').replace('\\t', '').replace('\\xa0', '')\
             .replace('\\r', '').replace('\n', '').replace('\t', '').replace('\r', '').replace('\xa0', '')
         c_keywords = extract_keywords(c_info_data, stop_words=stop_words)
-
         course_keywords_list.append(c_keywords)
     courses_data_processed.insert(2, 'course_keywords_list', course_keywords_list)
     # print(courses_data_new.head())
-
     # 3 写入新文件
     with open(path_course_processed, 'w', encoding='utf-8') as f:
         fieldnames = ['Course_Name', 'Course_Description', 'Course_Keywords_List']
