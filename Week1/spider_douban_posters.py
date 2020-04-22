@@ -28,7 +28,7 @@ def get_url(url):
         img_file = requests.get(img_src)
         print(img_src)
         # 保存海报到指定的当前目录的 data 文件夹下
-        dir_name = os.path.abspath('Week6_7/1_other_attempts/data')
+        dir_name = os.path.abspath('Week6_7_8_9/1_other_attempts/data')
         # 把 src 地址的最后一个 / 斜杠后面的内容作为图片的名字
         img_name = img_src.split('/')[-1]
         # 写入图片， 以二进制形式写入

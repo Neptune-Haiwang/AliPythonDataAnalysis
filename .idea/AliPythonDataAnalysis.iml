@@ -25,18 +25,20 @@
       <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/B_决策树算法" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/C_集成学习算法" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/B_聚类算法" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Week6_7" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week6_7_8_9" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/E_深度学习" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Week6/attempt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Week6/attempt/data" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Week6_7/1_other_attempts" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week6_7_8_9/1_other_attempts" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Week6/attempt2/Job_Data" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Week6_7/1_other_attempts/data" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Week6_7/Jobs_Courses_Datas" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week6_7_8_9/1_other_attempts/data" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week6_7_8_9/Jobs_Courses_Datas" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/Z_机器学习算法原理的代码实现" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/机器学习算法基础/D_线性回归" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/电影推荐系统" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Template" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/temp1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/自然语言处理NLP" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7 (standard)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
