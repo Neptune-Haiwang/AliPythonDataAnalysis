@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import jieba
 import math
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 def extract_words_list(text_data):
@@ -24,7 +24,7 @@ def extract_words_list(text_data):
     words = jieba.cut(text_data, cut_all=True)
     # 3 对分好的词进行处理，
     # 3.1 导入 停用词库
-    stop_words_dic = open('./stop_words.txt', 'rb')
+    stop_words_dic = open('Week6_7_8_9/stop_words.txt', 'rb')
     stop_words_list = stop_words_dic.read().splitlines()
     stop_words_dic.close()
 
@@ -34,6 +34,11 @@ def extract_words_list(text_data):
     split_words = [w for w in words]
     return split_words
 
+
+def get_courses_keywords_set():
+
+
+    pass
 
 def calculate_similarity(text1, text2):
     '''计算两个文本余弦相似度
@@ -118,7 +123,7 @@ def get_recommended_list(job_index, topN=10):
     @return:
     '''
     # 1.1 获取岗位的相关内容
-    jobs_data = pd.read_csv('./Jobs_Courses_Datas/jobs_data.csv')
+    jobs_data = pd.read_csv('Week6_7_8_9/Jobs_Courses_Datas/jobs_data.csv')
     # jobs_data = jobs_data.dropna().reset_index(drop=True)
     # 1.1.1 获取到指定行索引的数据
     job = jobs_data.iloc[job_index]
@@ -128,9 +133,10 @@ def get_recommended_list(job_index, topN=10):
     job_total = job_title * 2 + job_describe
 
     # 1.2 获取课程的相关内容
-    courses_data = pd.read_csv('./Jobs_Courses_Datas/courses_data.csv')
+    courses_data = pd.read_csv('Week6_7_8_9/Jobs_Courses_Datas/courses_data.csv')
     # 1.2.1 去掉有NAN的行的数据
     courses_data = courses_data.dropna().reset_index(drop=True)
+    # courses_data = courses_data.dropna().reset_index(drop=True).iloc[:200]
 
     # 2 构建一个列表存储：课程-岗位相似度，以及课程信息
     recommends = []
@@ -149,32 +155,48 @@ def get_recommended_list(job_index, topN=10):
         recommends.append(r_dict)
 
     # 3 对获得的列表按相似度为键，从高到低进行排序
-    # 3.1 针对 岗位-课程获得到的排序结果，再进行 课程-课程间的相似度检验
     recommends = sorted(recommends, key=lambda z: z['Job_Course_Similarity'], reverse=True)[:(topN * 3)]
-    # 3.1.2 以 岗位-课程 相似度的前五为基准
     for i in range(5, len(recommends)):
         temp_i = recommends[i]['Recommended_Course_Name'] + recommends[i]['Course_Description']
         sim_list_i = []
-        # 3.1.3 对于其他的课程，则进行与前五的相似度计算
         for j in range(5):
             temp_j = recommends[j]['Recommended_Course_Name'] + recommends[j]['Course_Description']
             while i != j:
                 t = calculate_similarity(temp_i, temp_j)
                 sim_list_i.append(t)
                 j += 1
-        # 3.2 某课程与top5的推荐课程的相似度，求个平均数
         sim = np.mean(sim_list_i)
-        # 3.3 重新反馈给相似度，并给予一定的权重分配
         recommends[i]['Job_Course_Similarity'] = recommends[i]['Job_Course_Similarity'] * 0.5 + sim * 0.5
-    # 3.4 再次对推荐列表进行排序
     recommends = sorted(recommends, key=lambda z: z['Job_Course_Similarity'], reverse=True)
+
     recommends = pd.DataFrame(recommends)
-    # 4 选取topN 课程： -> 用花式索引来获取，并打印
+    # 3.4 选取topN 课程： -> 用花式索引来获取，并打印
     print('对于工作：%s，岗位描述信息如下：\n%s\n' % (job_title, job_describe))
     recommended_courses_list = recommends[['Recommended_Course_Name', 'Job_Course_Similarity']][:topN]
     print('对于工作：%s， 我们推荐学习的课程清单如下：\n %s' % (job_title, recommended_courses_list))
     return None
 
 
+
+
 if __name__=='__main__':
-    get_recommended_list(job_index=526, topN=10)
+    # get_recommended_list(job_index=3988)
+
+    # courses_data = pd.read_csv('./Jobs_Courses_Datas/courses_data.csv').dropna().reset_index(drop=True)
+    # c = courses_data.course_description
+    # print(c.head())
+
+    courses_data = pd.read_csv('Week6_7_8_9/Jobs_Courses_Datas/courses_data.csv').dropna().reset_index(drop=True)
+    course_describe = list(courses_data['course_description'])
+    # print(course_describe)
+    words_list = []
+    for c in course_describe:
+        t = extract_words_list(c)
+        for w in t:
+            words_list.append(t)
+    words_set = set(words_list)
+    print(words_set)
+
+
+
+

@@ -31,6 +31,7 @@
 - pandas中的dataframe如何找出具有缺失值的行  https://segmentfault.com/q/1010000014210943
 - 删除DataFrame中值全为NaN或者包含有NaN的列或行    https://blog.csdn.net/calorand/article/details/53742290
 - DataFrame某些列值替换的三种方式  https://blog.csdn.net/weixin_37674494/article/details/82632621?utm_source=blogxgwz9
+- 用pandas中的DataFrame时选取行或列  https://blog.csdn.net/wanglingli95/article/details/78887771/
 - 机器学习-nlp-sklearn进行关键词提取（基于tfidf）  https://blog.csdn.net/wangjie5540/article/details/103811651
 
 - 推荐系统学习笔记之四——相似度计算以及权重的重要性 https://blog.csdn.net/qq_35946969/article/details/88233080

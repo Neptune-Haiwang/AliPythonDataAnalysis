@@ -39,6 +39,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Template" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/temp1" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/自然语言处理NLP" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Week6_7_8_9/实验产出对比" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7 (standard)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
