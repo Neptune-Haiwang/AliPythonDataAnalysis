@@ -135,6 +135,7 @@ def get_recommended_list(job_index, topN=10):
     # 2 构建一个列表存储：课程-岗位相似度，以及课程信息
     recommends = []
     for i in range(len(courses_data)):
+        # 获取第i个元素
         c = courses_data.loc[i]
         # 2.1 构建一个小字典存储：课程名字，课程描述，课程-岗位相似度
         r_dict = c
@@ -147,11 +148,10 @@ def get_recommended_list(job_index, topN=10):
         # 2.3 把生成的字典添加到列表中取
         recommends.append(r_dict)
 
-    # 3.1 对获得的列表按相似度为键，从高到低进行排序
+    # 3 对获得的列表按相似度为键，从高到低进行排序
     recommends = sorted(recommends, key=lambda z: z['Job_Course_Similarity'], reverse=True)
     recommends = pd.DataFrame(recommends)
-    # 3.2 选取topN 课程： -> 用花式索引来获取，并打印
-    # 3.3 先打印一下工作岗位的相关信息
+    # 3.4 选取topN 课程： -> 用花式索引来获取，并打印
     print('对于工作：%s，岗位描述信息如下：\n%s\n' % (job_title, job_describe))
     recommended_courses_list = recommends[['Recommended_Course_Name', 'Job_Course_Similarity']][:topN]
     print('对于工作：%s， 我们推荐学习的课程清单如下：\n %s' % (job_title, recommended_courses_list))
@@ -159,4 +159,4 @@ def get_recommended_list(job_index, topN=10):
 
 
 if __name__=='__main__':
-    get_recommended_list(job_index=526)
+    get_recommended_list(job_index=526, topN=10)
